@@ -2,6 +2,47 @@ version: 2.1
 orbs:
   node: circleci/node@3.0.0
 workflows:
-  node-tests:
+  my-workflow:
     jobs:
-      - node/test
+      - build:
+          context:
+            - dockerhub-creds
+
+jobs:
+  build:
+    docker:
+      - image: tk1351/myapp:frontend
+        auth:
+          username: $DOCKERHUB_USER
+          password: $DOCKERHUB_PASSWORD
+      - image: tk1351/myapp:backend
+        auth:
+          username: $DOCKERHUB_USER
+          password: $DOCKERHUB_PASSWORD
+    working_directory: ~/myapp
+    steps:
+      - checkout
+      - run:
+          command: apt-get update && apt-get install -y sudo
+      - run:
+          command: |
+            curl -fsSL https://get.docker.com/ | sh
+      - run:
+          command: |
+            curl -L https://github.com/docker/compose/releases/download/1.27.2/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+            chmod +x ~/docker-compose
+            sudo mv ~/docker-compose /usr/local/bin/docker-compose
+      - setup_remote_docker:
+          version: 19.03.12
+      - run:
+          command: docker-compose up --build -d
+      - run:
+          command: docker-compose stop
+      - run:
+          command: docker-compose up -d
+      - run:
+          command: docker-compose exec frontend yarn test --watchAll=false
+      - run:
+          command: docker-compose exec backend yarn test --watchAll=false
+      - run:
+          command: docker-compose down
