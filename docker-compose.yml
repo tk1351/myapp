@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    command: 'yarn start'
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./frontend:/myapp/frontend
+    tty: true
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    command: 'yarn start'
+    ports:
+      - '8080:8080'
+    volumes:
+      - ./backend:/myapp/frontend
