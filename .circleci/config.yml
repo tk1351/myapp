@@ -23,9 +23,7 @@ jobs:
     steps:
       - checkout
       - run:
-          command: apk update && apk add sudo curl
-      - run:
-          command: apk add docker docker-compose
+          command: apk update && apk add sudo curl docker docker-compose yarn
       # - run:
       #     command: |
       #       curl -fsSL https://get.docker.com/ | sh
@@ -43,12 +41,12 @@ jobs:
       - run:
           command: docker-compose up -d
       - run:
-          command: cd frontend && ls
+          command: cd frontend && yarn install --frozon-lockfile
       - run:
-          command: cd backend && ls
-      # - run:
-      #     command: docker-compose exec frontend yarn test --watchAll=false
-      # - run:
-      #     command: docker-compose exec backend yarn test --watchAll=false
-      # - run:
-      #     command: docker-compose down
+          command: cd backend && yarn install --frozon-lockfile
+      - run:
+          command: docker-compose exec frontend yarn test --watchAll=false
+      - run:
+          command: docker-compose exec backend yarn test --watchAll=false
+      - run:
+          command: docker-compose down
