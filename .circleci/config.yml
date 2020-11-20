@@ -37,13 +37,13 @@ jobs:
       - run:
           command: docker-compose up --build -d
       - run:
-          command: docker-compose stop
-      - run:
-          command: docker-compose up -d
-      - run:
           command: cd frontend && yarn install --frozon-lockfile
       - run:
           command: cd backend && yarn install --frozon-lockfile
+      - run:
+          command: docker-compose stop
+      - run:
+          command: docker-compose up -d
       - run:
           command: docker-compose exec frontend yarn test --watchAll=false
       - run:
