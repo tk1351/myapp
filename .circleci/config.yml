@@ -32,10 +32,9 @@ jobs:
             curl -L https://github.com/docker/compose/releases/download/1.27.2/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
             chmod +x ~/docker-compose
             sudo mv ~/docker-compose /usr/local/bin/docker-compose
+            docker-compose --version
       - setup_remote_docker:
           version: 19.03.12
-      - run:
-          command: which docker-compose
       - run:
           command: docker-compose up --build -d
       - run:
