@@ -23,7 +23,7 @@ jobs:
     steps:
       - checkout
       - run:
-          command: apk update && apk add sudo
+          command: apk update && apk add sudo curl
       - run:
           command: |
             curl -fsSL https://get.docker.com/ | sh
