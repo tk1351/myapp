@@ -35,6 +35,8 @@ jobs:
       - setup_remote_docker:
           version: 19.03.12
       - run:
+          command: which docker-compose
+      - run:
           command: docker-compose up --build -d
       - run:
           command: docker-compose stop
