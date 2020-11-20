@@ -11,11 +11,11 @@ workflows:
 jobs:
   build:
     docker:
-      - image: tk1351/myapp:frontend
+      - image: tk1351/myapp:frontendv2
         auth:
           username: $DOCKERHUB_USER
           password: $DOCKERHUB_PASSWORD
-      - image: tk1351/myapp:backend
+      - image: tk1351/myapp:backendv2
         auth:
           username: $DOCKERHUB_USER
           password: $DOCKERHUB_PASSWORD
