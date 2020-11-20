@@ -43,8 +43,12 @@ jobs:
       - run:
           command: docker-compose up -d
       - run:
-          command: docker-compose exec frontend yarn test --watchAll=false
+          command: cd frontend && ls
       - run:
-          command: docker-compose exec backend yarn test --watchAll=false
-      - run:
-          command: docker-compose down
+          command: cd backend && ls
+      # - run:
+      #     command: docker-compose exec frontend yarn test --watchAll=false
+      # - run:
+      #     command: docker-compose exec backend yarn test --watchAll=false
+      # - run:
+      #     command: docker-compose down
