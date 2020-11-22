@@ -8,8 +8,8 @@ services:
     command: 'yarn start'
     ports:
       - '3000:3000'
-    # volumes:
-    #   - ./frontend:/myapp/frontend
+    volumes:
+      - ./frontend:/myapp/frontend
     tty: true
 
   backend:
@@ -19,5 +19,7 @@ services:
     command: 'yarn start'
     ports:
       - '8080:8080'
-    # volumes:
-    #   - ./backend:/myapp/frontend
+    volumes:
+      - ./backend:/myapp/backend
+    environment:
+      CHOKIDAR_USEPOLLING: 1
