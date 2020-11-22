@@ -8,6 +8,8 @@ const server = http.createServer(app)
 const PORT = process.env.PORT || 8080
 const config = require('./config/dev')
 
+const postRoutes = require('./routes/post')
+
 app.get('/', (req, res) => {
   res.send('test')
 })
@@ -26,6 +28,8 @@ db.once('open', () => {
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
+
+app.use('/api/v1/post', postRoutes)
 
 server.listen(PORT, (error) => {
   if (error) {
