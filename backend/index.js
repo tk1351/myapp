@@ -3,16 +3,22 @@ const app = express()
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const http = require('http')
+const { graphqlHTTP } = require('express-graphql')
+const schema = require('./schema/schema')
 
 const server = http.createServer(app)
 const PORT = process.env.PORT || 8080
 const config = require('./config/dev')
 
-const postRoutes = require('./routes/post')
+const router = require('./routes')
 
-app.get('/', (req, res) => {
-  res.send('test')
-})
+app.use(
+  '/graphql',
+  graphqlHTTP({
+    schema,
+    graphiql: true,
+  })
+)
 
 mongoose.connect(config.DB_URI, {
   useNewUrlParser: true,
@@ -29,7 +35,7 @@ db.once('open', () => {
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
-app.use('/api/v1/post', postRoutes)
+app.use('/api/v1', router)
 
 server.listen(PORT, (error) => {
   if (error) {
