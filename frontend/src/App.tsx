@@ -16,7 +16,7 @@ const App: React.FC = () => {
         dispatch(
           login({
             uid: authUser.uid,
-            // photoUrl: authUser.photoURL,
+            photoUrl: authUser.photoURL,
             displayName: authUser.displayName,
           })
         )

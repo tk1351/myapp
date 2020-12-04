@@ -3,13 +3,13 @@ import { RootState } from '../app/store';
 
 interface USER {
   displayName: string
-  // photoUrl: string
+  photoUrl: string
 }
 
 const initialState = {
   user: {
     uid: '',
-    // photoUrl: '',
+    photoUrl: '',
     displayName: ''
   }
 }
@@ -22,11 +22,11 @@ export const userSlice = createSlice({
       state.user = action.payload
     },
     logout: (state) => {
-      state.user = { uid: '', displayName: '' }
+      state.user = { uid: '', photoUrl: '', displayName: '' }
     },
     updateUserProfile: (state, action: PayloadAction<USER>) => {
       state.user.displayName = action.payload.displayName
-      // state.user.photoUrl = action.payload.photoUrl
+      state.user.photoUrl = action.payload.photoUrl
     }
   }
 })

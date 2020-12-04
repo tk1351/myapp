@@ -23,7 +23,7 @@ module.exports = {
     })
   },
   addUser: (req, res) => {
-    const { uid, username } = req.body
+    const { uid, username, photoUrl } = req.body
     if (!uid) {
       return res
         .status(422)
@@ -45,7 +45,7 @@ module.exports = {
           errors: [{ title: 'user error', detail: '既にユーザーが存在します' }],
         })
       }
-      const user = new User({ uid, username })
+      const user = new User({ uid, username, photoUrl })
       user.save((err) => {
         if (err) {
           res.send(err)

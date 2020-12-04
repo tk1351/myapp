@@ -7,6 +7,8 @@ import axios from 'axios'
 const Feed: React.FC = () => {
   const user = useSelector(selectUser)
 
+  console.log('avatar', user.photoUrl)
+
   const loginUserState = () => {
     auth.onAuthStateChanged((user) => {
       if (user) {
@@ -17,6 +19,7 @@ const Feed: React.FC = () => {
             await axios.post(url, {
               uid: user.uid,
               username: user.displayName,
+              photoUrl: user.photoURL
             })
           } catch (err) {
             console.error(err)

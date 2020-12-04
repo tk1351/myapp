@@ -3,10 +3,18 @@ const Schema = mongoose.Schema
 
 const UserSchema = new Schema(
   {
-    username: { type: String },
+    username: {
+      type: String,
+      required: true,
+    },
     uid: {
       type: String,
       unique: true,
+      required: true,
+    },
+    photoUrl: {
+      type: String,
+      required: true,
     },
   },
   {
