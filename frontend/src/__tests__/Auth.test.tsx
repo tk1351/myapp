@@ -1,12 +1,10 @@
 import React from 'react'
-import { render, screen, cleanup, fireEvent } from '@testing-library/react'
+import { render, screen, cleanup } from '@testing-library/react'
 import Auth from '../components/Auth'
 import { Provider } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
 import userReducer from '../features/userSlice'
 import userEvent from '@testing-library/user-event'
-import { TextField } from "@material-ui/core";
-
 
 afterEach(() => {cleanup()})
 
@@ -40,14 +38,27 @@ describe('Disable button conditionally triggered', () => {
       }
     })
   })
-  it('Should disable button work', () => {
+  it('Should disable button work in isLogin', () => {
     render(
       <Provider store={store}>
         <Auth />
       </Provider>
     )
-    userEvent.click(screen.getByTestId('disabledButton'))
-    expect(screen.getByTestId('disabledButton')).toHaveAttribute('disabled')
+    userEvent.click(screen.getByTestId('authButton'))
+    expect(screen.getByTestId('authButton')).toHaveAttribute('disabled')
+  })
+  it('Should disable button work in Register', () => {
+    render(
+      <Provider store={store}>
+        <Auth />
+      </Provider>
+    )
+    const spanElement: any = screen.getByLabelText('changeScreen').querySelector('span')
+    userEvent.click(spanElement)
+    expect(spanElement).toHaveTextContent('Back to login')
+    expect(screen.getByTestId('h1')).toHaveTextContent('Register')
+    userEvent.click(screen.getByTestId('authButton'))
+    expect(screen.getByTestId('authButton')).toHaveAttribute('disabled')
   })
 })
 
@@ -75,3 +86,40 @@ describe('Input form onChange event', () => {
     expect(inputPassValue?.value).toEqual('testtest')
   })
 })
+
+
+describe('Button conditionally triggered', () => {
+  let store: any
+  beforeEach(() => {
+    store = configureStore({
+      reducer: {
+        user: userReducer
+      }
+    })
+  })
+  it('Should not trigger signIn function', () => {
+    render(
+      <Provider store={store}>
+        <Auth />
+      </Provider>
+    )
+    const mockFn = jest.fn()
+    userEvent.click(screen.getByTestId('authButton'))
+    expect(mockFn).not.toHaveBeenCalled()
+  })
+  it('Should not trigger signUp function', () => {
+    render(
+      <Provider store={store}>
+        <Auth />
+      </Provider>
+    )
+    const mockFn = jest.fn()
+    const spanElement: any = screen.getByLabelText('changeScreen').querySelector('span')
+    userEvent.click(spanElement)
+    expect(spanElement).toHaveTextContent('Back to login')
+    expect(screen.getByTestId('h1')).toHaveTextContent('Register')
+    userEvent.click(screen.getByTestId('authButton'))
+    expect(mockFn).not.toHaveBeenCalled()
+  })
+})
+
