@@ -8,7 +8,7 @@ module.exports = {
           .status(422)
           .send({ errors: [{ title: 'Error', detail: 'User not found' }] })
       }
-      return res.json(foundUser)
+      return res.status(200).json(foundUser)
     })
   },
   getUserById: (req, res) => {

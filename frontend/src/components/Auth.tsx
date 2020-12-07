@@ -252,7 +252,7 @@ const Auth: React.FC = () => {
               variant="contained"
               color="primary"
               className={classes.submit}
-              data-testid="disabledButton"
+              data-testid="authButton"
               onClick={
                 isLogin
                   ? async () => {
@@ -277,11 +277,8 @@ const Auth: React.FC = () => {
               <Grid item xs>
                 <span onClick={() => setOpenModal(true)}>Forgot password?</span>
               </Grid>
-              <Grid item>
-                <span
-                  data-testid="changeScreen"
-                  onClick={() => setIsLogin(!isLogin)}
-                >
+              <Grid item aria-label="changeScreen">
+                <span onClick={() => setIsLogin(!isLogin)}>
                   {isLogin ? 'Create new account?' : 'Back to login'}
                 </span>
               </Grid>
