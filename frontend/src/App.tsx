@@ -1,29 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react'
+import Auth from './components/Auth'
+import { useSelector, useDispatch } from 'react-redux'
+import { selectUser, login, logout } from './features/userSlice'
+import { auth } from './firebase'
+import Feed from './components/Feed'
 
-function App() {
+
+const App: React.FC = () => {
+  const user = useSelector(selectUser)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    const unSub = auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        dispatch(
+          login({
+            uid: authUser.uid,
+            photoUrl: authUser.photoURL,
+            displayName: authUser.displayName,
+          })
+        )
+      } else {
+        dispatch(logout())
+      }
+    })
+    // cleanup関数
+    return () => {
+      unSub()
+    }
+  }, [dispatch])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <p>aaa
-          
-        </p>
-      </header>
-    </div>
-  );
+    <>
+        {user.uid ? (
+          <div>
+            <Feed />
+          </div>
+        ) : (
+          <Auth />
+        )}
+    </>
+  )
 }
 
-export default App;
+export default App
