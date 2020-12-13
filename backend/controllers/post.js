@@ -28,7 +28,7 @@ module.exports = {
       return res.json(foundPost)
     })
   },
-  post: (req, res) => {
+  addPost: (req, res) => {
     const ArticlePost = new Post()
 
     ArticlePost.uid = req.body.uid
@@ -37,6 +37,7 @@ module.exports = {
     ArticlePost.text = req.body.text
     ArticlePost.url = req.body.url
     ArticlePost.fav = req.body.fav
+    ArticlePost.image = req.body.image
 
     ArticlePost.save((err) => {
       if (err) {

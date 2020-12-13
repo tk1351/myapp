@@ -1,38 +1,40 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../app/store';
-
-interface USER {
-  displayName: string
-  photoUrl: string
-}
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import axios from 'axios'
 
 const initialState = {
-  user: {
-    uid: '',
-    photoUrl: '',
-    displayName: ''
-  }
+  users: [],
+  status: 'idle',
+  error: null
 }
 
-export const userSlice = createSlice({
-  name: 'user',
-  initialState: initialState,
-  reducers: {
-    login: (state, action) => {
-      state.user = action.payload
+export const fetchAvatars = createAsyncThunk(
+  'users/fetchAvatars',
+  async () => {
+    const url = '/api/v1/user'
+    const res = await axios.get(url)
+    return res.data
+  }
+)
+
+export const usersSlice = createSlice({
+  name: 'users',
+  initialState,
+  reducers: {},
+  extraReducers: {
+    [fetchAvatars.pending as any]: (state, action) => {
+      state.status = 'loading'
     },
-    logout: (state) => {
-      state.user = { uid: '', photoUrl: '', displayName: '' }
+    [fetchAvatars.fulfilled as any]: (state, action) => {
+      state.status = 'suceeded'
+      state.users = state.users.concat(action.payload)
     },
-    updateUserProfile: (state, action: PayloadAction<USER>) => {
-      state.user.displayName = action.payload.displayName
-      state.user.photoUrl = action.payload.photoUrl
+    [fetchAvatars.rejected as any]: (state, action) => {
+      state.status = 'failed'
+      state.error = action.error.message
     }
   }
 })
 
-export const { login, logout, updateUserProfile } = userSlice.actions
+export const selectAllUsers = (state: any) => state.userData.users
 
-export const selectUser = (state: RootState) => state.user.user
-
-export default userSlice.reducer
+export default usersSlice.reducer

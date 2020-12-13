@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react'
-import Auth from './components/Auth'
-import { useSelector, useDispatch } from 'react-redux'
-import { selectUser, login, logout } from './features/userSlice'
+import { useDispatch } from 'react-redux'
+import { login, logout } from './features/authSlice'
 import { auth } from './firebase'
-import Feed from './components/Feed'
+import Navbar from './components/Navbar'
+import Sidebar from './components/Sidebar'
 
 
 const App: React.FC = () => {
-  const user = useSelector(selectUser)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -32,13 +31,8 @@ const App: React.FC = () => {
 
   return (
     <>
-        {user.uid ? (
-          <div>
-            <Feed />
-          </div>
-        ) : (
-          <Auth />
-        )}
+      <Navbar />
+      <Sidebar />
     </>
   )
 }

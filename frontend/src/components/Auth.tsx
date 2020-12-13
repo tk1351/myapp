@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { auth, provider, storage } from '../firebase'
-import { updateUserProfile } from '../features/userSlice'
+import { updateUserProfile } from '../features/authSlice'
 import {
   Avatar,
   Button,
@@ -13,17 +13,14 @@ import {
   Modal,
   IconButton,
   Box,
-  FormControlLabel,
-  Checkbox,
-  Link,
 } from '@material-ui/core'
 import SendIcon from '@material-ui/icons/Send'
 import CameraIcon from '@material-ui/icons/Camera'
-import EmailIcon from '@material-ui/icons/Email'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import { useDispatch } from 'react-redux'
 import styles from '../modules/Auth.module.css'
+import history from '../history'
 
 const getModalStyle = () => {
   const top = 50
@@ -120,10 +117,12 @@ const Auth: React.FC = () => {
         photoUrl: url,
       })
     )
+    await history.push('/feed')
   }
 
   const signInEmail = async () => {
     await auth.signInWithEmailAndPassword(email, password)
+    await history.push('/feed')
   }
 
   const signInGoogle = async () => {

@@ -1,26 +1,34 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { auth } from '../firebase'
-import { selectUser } from '../features/userSlice'
-import { useSelector } from 'react-redux'
+import { selectUser } from '../features/authSlice'
+import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
-import Post from './Post'
-
-const initialPostState = {
-  _id: '',
-  uid: '',
-  categoryId: '',
-  title: '',
-  text: '',
-  image: '',
-  url: '',
-  fav: 0,
-  createdAt: null,
-}
+import Post, { PostProps } from './Post'
+import { Avatar } from '@material-ui/core'
+import history from '../history'
+import { fetchPostData, selectAllPosts } from '../features/postSlice'
+import { fetchAvatars, selectAllUsers } from '../features/userSlice'
+import { fetchCategoriesData } from '../features/categorySlice'
+import { selectAllComments, fetchCommentsData } from '../features/commentSlice'
 
 const Feed: React.FC = () => {
   const user = useSelector(selectUser)
-  const [posts, setPosts] = useState([initialPostState])
+  const posts = useSelector(selectAllPosts)
+  const users = useSelector(selectAllUsers)
+  const comments = useSelector(selectAllComments)
+  const postStatus = useSelector((state: any) => state.postData.status)
+  const userStatus = useSelector((state: any) => state.userData.status)
+  const categoriesStatus = useSelector((state: any) => state.categoriesData.status)
+  const commentsStatus = useSelector((state: any) => state.commentData.status)
 
+  const dispatch = useDispatch()
+
+  const orderedPosts = posts
+    .slice()
+    .sort((a: { createdAt: string }, b: { createdAt: string }) =>
+      b.createdAt.localeCompare(a.createdAt)
+    )
+  
   const loginUserState = () => {
     auth.onAuthStateChanged((user) => {
       if (user) {
@@ -45,41 +53,47 @@ const Feed: React.FC = () => {
 
   useEffect(() => {
     loginUserState()
-    fetchPostsData()
-  }, [user])
+    fetchAvatars()
+    if (postStatus === 'idle') {
+      dispatch(fetchPostData())
+    }
+    if (userStatus === 'idle') {
+      dispatch(fetchAvatars())
+    }
+    if (categoriesStatus === 'idle') {
+      dispatch(fetchCategoriesData())
+    }
+    if (commentsStatus === 'idle') {
+      dispatch(fetchCommentsData())
+    }
+  }, [user, postStatus, userStatus, categoriesStatus, commentsStatus, dispatch])
 
-  const fetchPostsData = async () => {
-    const url = '/api/v1/post'
-    await axios.get(url).then((res) => {
-      setPosts(res.data)
-    })
+  // 投稿者のuidからphotoUrlを探す
+  const matchUidAndPhotoUrl = (uid: string) => {
+    return users.find((user: { uid: string }) => user.uid === uid)?.photoUrl
   }
-
+ 
   return (
     <div>
       Feed
       <button
         onClick={async () => {
           await auth.signOut()
+          await history.push('/login')
         }}
       >
         logout
       </button>
-      {posts[0]?._id && (
+      {orderedPosts[0]?._id && (
         <>
-          {posts?.map((post) => (
-            <Post
-              key={post._id}
-              _id={post._id}
-              uid={post.uid}
-              categoryId={post.categoryId}
-              title={post.title}
-              text={post.text}
-              image={post.image}
-              url={post.url}
-              fav={post.fav}
-              createdAt={post.createdAt}
-            />
+          {orderedPosts?.map((post: PostProps) => (
+            <>
+              <Avatar src={matchUidAndPhotoUrl(post.uid)}/>
+              <Post
+                key={post._id}
+                props={post}
+              />
+            </>
           ))}
         </>
       )}
