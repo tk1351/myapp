@@ -3,7 +3,7 @@ import { render, screen, cleanup } from '@testing-library/react'
 import Auth from '../components/Auth'
 import { Provider } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
-import userReducer from '../features/userSlice'
+import userReducer from '../features/authSlice'
 import userEvent from '@testing-library/user-event'
 
 afterEach(() => {cleanup()})

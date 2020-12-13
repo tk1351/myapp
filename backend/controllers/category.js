@@ -18,7 +18,7 @@ module.exports = {
       return res.json(foundCategory)
     })
   },
-  post: (req, res) => {
+  addCategory: (req, res) => {
     const CategoryPost = new Category()
     CategoryPost.name = req.body.name
 

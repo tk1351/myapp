@@ -1,9 +1,19 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import userReducer from '../features/userSlice';
+import authReducer from '../features/authSlice';
+import postsReducer from '../features/postSlice'
+import usersReducer from '../features/userSlice'
+import categoryReducer from '../features/categorySlice'
+import searchReducer from '../features/searchSlice'
+import commentReducer from '../features/commentSlice'
 
 export const store = configureStore({
   reducer: {
-    user: userReducer
+    auth: authReducer,
+    postData: postsReducer,
+    userData: usersReducer,
+    categoriesData: categoryReducer,
+    queryParams: searchReducer,
+    commentData: commentReducer
   },
 });
 
