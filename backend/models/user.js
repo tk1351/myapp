@@ -16,6 +16,10 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
+    company: String,
+    position: String,
+    bio: String,
+    url: String,
   },
   {
     timestamps: true,

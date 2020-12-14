@@ -39,18 +39,21 @@ module.exports = {
     ArticlePost.fav = req.body.fav
     ArticlePost.image = req.body.image
 
-    ArticlePost.save((err) => {
+    ArticlePost.save((err, data) => {
       if (err) {
         res.send(err)
       } else {
         res.json({
-          uid: ArticlePost.uid,
-          categoryId: ArticlePost.categoryId,
-          title: ArticlePost.title,
-          text: ArticlePost.text,
-          url: ArticlePost.url,
-          fav: ArticlePost.fav,
-          image: ArticlePost.image,
+          _id: data._id,
+          uid: data.uid,
+          categoryId: data.categoryId,
+          title: data.title,
+          text: data.text,
+          url: data.url,
+          fav: data.fav,
+          image: data.image,
+          createdAt: data.createdAt,
+          updatedAt: data.updatedAt,
         })
       }
     })
@@ -68,17 +71,21 @@ module.exports = {
         foundPost.fav = req.body.fav
         foundPost.image = req.body.image
 
-        foundPost.save((err) => {
+        foundPost.save((err, data) => {
           if (err) {
             res.send(err)
           } else {
             res.json({
-              title: foundPost.title,
-              text: foundPost.text,
-              categoryId: foundPost.categoryId,
-              url: foundPost.url,
-              fav: foundPost.fav,
-              image: foundPost.image,
+              _id: data._id,
+              uid: data.uid,
+              title: data.title,
+              text: data.text,
+              categoryId: data.categoryId,
+              url: data.url,
+              fav: data.fav,
+              image: data.image,
+              createdAt: data.createdAt,
+              updatedAt: data.updatedAt,
             })
           }
         })

@@ -155,10 +155,11 @@ const SinglePostPage: React.FC = ({ match }: any) => {
                     type="text"
                     value={values.text}
                     onChange={handleChange}
+                    required
                   />
                 </Form>
                 {/* buttonがきかない */}
-                <Button type="submit" disabled={!values}>
+                <Button type="submit">
                   <SendIcon />
                 </Button>
               </>
