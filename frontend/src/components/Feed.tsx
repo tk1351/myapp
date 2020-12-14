@@ -9,13 +9,12 @@ import history from '../history'
 import { fetchPostData, selectAllPosts } from '../features/postSlice'
 import { fetchAvatars, selectAllUsers } from '../features/userSlice'
 import { fetchCategoriesData } from '../features/categorySlice'
-import { selectAllComments, fetchCommentsData } from '../features/commentSlice'
+import { fetchCommentsData } from '../features/commentSlice'
 
 const Feed: React.FC = () => {
   const user = useSelector(selectUser)
   const posts = useSelector(selectAllPosts)
   const users = useSelector(selectAllUsers)
-  const comments = useSelector(selectAllComments)
   const postStatus = useSelector((state: any) => state.postData.status)
   const userStatus = useSelector((state: any) => state.userData.status)
   const categoriesStatus = useSelector((state: any) => state.categoriesData.status)
