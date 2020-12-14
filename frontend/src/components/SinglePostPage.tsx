@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectAllPosts } from '../features/postSlice'
+import { selectAllPosts, PostedData } from '../features/postSlice'
 import { selectAllCategories, fetchCategoriesData } from '../features/categorySlice'
 import { selectAllUsers, fetchAvatars } from '../features/userSlice'
 import { Avatar, TextField, Button } from '@material-ui/core'
@@ -10,6 +10,9 @@ import { selectAllComments, addNewComment } from '../features/commentSlice'
 import { Formik, Form } from 'formik'
 import { selectUser } from '../features/authSlice'
 import { unwrapResult } from '@reduxjs/toolkit'
+import { Link } from 'react-router-dom'
+import axios from 'axios'
+import history from '../history'
 
 interface Comment {
   _id: string,
@@ -82,13 +85,17 @@ const SinglePostPage: React.FC = ({ match }: any) => {
     }
   }
 
-  // FIXME: 自身が投稿した記事の場合は編集・削除ができる
-  const updatePost = () => {
+  const findOwnPostData = posts.find(
+    (post: { uid: string }) => post.uid === authUser.uid
+  )
 
-  }
-
-  const deletePost = () => {
-    
+  const onDeletePostClicked = async (singlePost: PostedData) => {
+    const url = `/api/v1/post/${singlePost._id}`
+    if (window.confirm('記事を削除してもよろしいですか？')) {
+      await axios.delete(url).then(() => {
+        history.push('/feed')
+      })
+    }
   }
   
   return (
@@ -100,6 +107,18 @@ const SinglePostPage: React.FC = ({ match }: any) => {
         <Avatar src={singlePost.image}/>
       )}
       <p>カテゴリー： {matchCategoriesIdAndCategoriesName(singlePost.categoryId)}</p>
+      {findOwnPostData?.uid === singlePost.uid ? (
+        <>
+          <button>
+            <Link to={`/post/edit/${singlePost._id}`}>編集する</Link>
+          </button>
+          <button onClick={() => onDeletePostClicked(singlePost)}>削除する</button>
+        </>
+      ) : (
+        <>
+          編集不可能
+        </>
+      )}
       <MessageIcon onClick={() => setOpenComments(!openComments)} />
       {openComments && (
         <>

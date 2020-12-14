@@ -1,6 +1,25 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { values } from '../components/AddPost'
+
+interface PostData {
+  title: string
+  text: string
+  categoryId: string
+  url: string
+  uid: string
+  fav: number
+}
+
+export interface PostedData {
+  _id: string
+  uid: string
+  title: string
+  text: string
+  categoryId: string
+  url: string
+  fav: number
+  image: string
+}
 
 const initialState = {
   posts: [],
@@ -19,9 +38,27 @@ export const fetchPostData = createAsyncThunk(
 
 export const addNewPost = createAsyncThunk(
   'posts/addNewPost',
-  async (newValues: values) => {
+  async (newValues: PostData) => {
     const url = '/api/v1/post'
     const res = await axios.post(url, newValues)
+    return res.data
+  }
+)
+
+export const updatePost = createAsyncThunk(
+  'posts/updatePost',
+  async (newValues: PostedData) => {
+    const url = `/api/v1/post/${newValues._id}`
+    const res = await axios.put(url, newValues)
+    return res.data
+  }
+)
+
+export const deletePost = createAsyncThunk(
+  'posts/deletePost',
+  async (props: PostedData) => {
+    const url = `/api/v1/post/${props._id}`
+    const res = await axios.delete(url)
     return res.data
   }
 )
@@ -45,6 +82,13 @@ export const postsSlice = createSlice({
     [addNewPost.fulfilled as any]: (state: any, action) => {
       state.posts.push(action.payload)
     },
+    [updatePost.fulfilled as any]: (state: any, action) => {
+      state.posts.push(action.payload)
+    },
+    [deletePost.fulfilled as any]: (state: any, action) => {
+      // FIXME: Stateの処理を調べる
+      state.posts.filter((post: any) => post !== action.meta.arg)
+    }
   }
 })
 

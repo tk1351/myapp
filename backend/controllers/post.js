@@ -43,7 +43,15 @@ module.exports = {
       if (err) {
         res.send(err)
       } else {
-        res.json({ articlePost: 'success' })
+        res.json({
+          uid: ArticlePost.uid,
+          categoryId: ArticlePost.categoryId,
+          title: ArticlePost.title,
+          text: ArticlePost.text,
+          url: ArticlePost.url,
+          fav: ArticlePost.fav,
+          image: ArticlePost.image,
+        })
       }
     })
   },
@@ -58,12 +66,20 @@ module.exports = {
         foundPost.categoryId = req.body.categoryId
         foundPost.url = req.body.url
         foundPost.fav = req.body.fav
+        foundPost.image = req.body.image
 
         foundPost.save((err) => {
           if (err) {
             res.send(err)
           } else {
-            res.json({ update: 'success' })
+            res.json({
+              title: foundPost.title,
+              text: foundPost.text,
+              categoryId: foundPost.categoryId,
+              url: foundPost.url,
+              fav: foundPost.fav,
+              image: foundPost.image,
+            })
           }
         })
       }
