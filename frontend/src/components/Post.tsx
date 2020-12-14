@@ -6,6 +6,7 @@ import { selectAllCategories } from '../features/categorySlice'
 import { selectUser } from '../features/authSlice'
 import { Link } from 'react-router-dom'
 import { selectAllPosts, deletePost, PostedData } from '../features/postSlice'
+import { selectAllUsers } from '../features/userSlice'
 
 interface PostData  {
   props: PostProps
@@ -37,6 +38,7 @@ const Post: React.FC<PostData> = ({ props }) => {
   const user = useSelector(selectUser)
   const categories = useSelector(selectAllCategories)
   const posts = useSelector(selectAllPosts)
+  const users = useSelector(selectAllUsers)
 
   const dispatch = useDispatch()
 
@@ -55,9 +57,18 @@ const Post: React.FC<PostData> = ({ props }) => {
     }
   }
 
+  const findAuthorName = (uid: string) => {
+    return users.find((user: { uid: string }) => user.uid === uid)?.username
+  }
+
   return (
     <div>
       <p>{convertPostingDateToJapanTime(props.createdAt)}</p>
+      <p>
+        <Link to={`/user/profile/${props.uid}`}>
+          Author: {findAuthorName(props.uid)}
+        </Link>
+      </p>
       <h1>{props.title}</h1>
       <p>{props.text}</p>
       {props.image && (

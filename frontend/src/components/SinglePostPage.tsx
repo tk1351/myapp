@@ -97,10 +97,19 @@ const SinglePostPage: React.FC = ({ match }: any) => {
       })
     }
   }
+
+  const findAuthorName = (uid: string) => {
+    return users.find((user: { uid: string }) => user.uid === uid)?.username
+  }
   
   return (
     <div>
       <Avatar src={fetchAuthorData.photoUrl}/>
+      <p>
+        <Link to={`/user/profile/${singlePost.uid}`}>
+          Author: {findAuthorName(singlePost.uid)}
+        </Link>
+      </p>
       <h1>{singlePost.title}</h1>
       <p>{singlePost.text}</p>
       {singlePost.image && (
