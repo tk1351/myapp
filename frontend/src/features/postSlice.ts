@@ -83,11 +83,16 @@ export const postsSlice = createSlice({
       state.posts.push(action.payload)
     },
     [updatePost.fulfilled as any]: (state: any, action) => {
-      state.posts.push(action.payload)
+      const postData = state.posts.findIndex(
+        (post: { _id: string }) => post._id === action.payload._id
+      )
+      state.posts.splice(postData, 1, action.payload)
     },
     [deletePost.fulfilled as any]: (state: any, action) => {
-      // FIXME: Stateの処理を調べる
-      state.posts.filter((post: any) => post !== action.meta.arg)
+      const deletePostData = state.posts.findIndex(
+        (post: { _id: string }) => post._id === action.meta.arg._id
+      )
+      state.posts.splice(deletePostData, 1)
     }
   }
 })

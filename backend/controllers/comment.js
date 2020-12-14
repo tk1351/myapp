@@ -36,15 +36,15 @@ module.exports = {
     CommentPost.text = req.body.text
     CommentPost.postId = req.body.postId
 
-    CommentPost.save((err) => {
+    CommentPost.save((err, data) => {
       if (err) {
         res.send(err)
       } else {
         res.json({
-          uid: CommentPost.uid,
-          text: CommentPost.text,
-          postId: CommentPost.postId,
-          photoUrl: CommentPost.photoUrl,
+          uid: data.uid,
+          text: data.text,
+          postId: data.postId,
+          photoUrl: data.photoUrl,
         })
       }
     })

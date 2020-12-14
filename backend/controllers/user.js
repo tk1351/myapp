@@ -45,7 +45,15 @@ module.exports = {
           errors: [{ title: 'user error', detail: '既にユーザーが存在します' }],
         })
       }
-      const user = new User({ uid, username, photoUrl })
+      const user = new User({
+        uid,
+        username,
+        photoUrl,
+        company: '',
+        position: '',
+        bio: '',
+        url: '',
+      })
       user.save((err) => {
         if (err) {
           res.send(err)
@@ -53,6 +61,41 @@ module.exports = {
           res.json({ addUser: 'success' })
         }
       })
+    })
+  },
+  putByUid: (req, res) => {
+    const uid = req.params.uid
+    User.findOne({ uid }, (err, foundUser) => {
+      if (err) {
+        res.send(err)
+      } else {
+        foundUser.uid = req.body.uid
+        foundUser.username = req.body.username
+        foundUser.photoUrl = req.body.photoUrl
+        foundUser.company = req.body.company
+        foundUser.position = req.body.position
+        foundUser.bio = req.body.bio
+        foundUser.url = req.body.url
+
+        foundUser.save((err, data) => {
+          if (err) {
+            res.send(err)
+          } else {
+            res.json({
+              _id: data._id,
+              uid: data.uid,
+              username: data.username,
+              photoUrl: data.photoUrl,
+              company: data.company,
+              position: data.position,
+              bio: data.bio,
+              url: data.url,
+              createdAt: data.createdAt,
+              updatedAt: data.updatedAt,
+            })
+          }
+        })
+      }
     })
   },
 }

@@ -7,11 +7,30 @@ const initialState = {
   error: null
 }
 
+export interface Profile {
+  uid: string,
+  username: string,
+  photoUrl: string,
+  company: string,
+  position: string,
+  bio: string,
+  url: string
+}
+
 export const fetchAvatars = createAsyncThunk(
   'users/fetchAvatars',
   async () => {
     const url = '/api/v1/user'
     const res = await axios.get(url)
+    return res.data
+  }
+)
+
+export const updateUserProfile = createAsyncThunk(
+  'users/updateUserProfile',
+  async (newValues: Profile) => {
+    const url = `/api/v1/user/${newValues.uid}`
+    const res = await axios.put(url, newValues)
     return res.data
   }
 )
@@ -31,6 +50,12 @@ export const usersSlice = createSlice({
     [fetchAvatars.rejected as any]: (state, action) => {
       state.status = 'failed'
       state.error = action.error.message
+    },
+    [updateUserProfile.fulfilled as any]: (state: any, action) => {
+      const profileData = state.users.findIndex(
+        (user: { uid: string }) => user.uid === action.payload.uid
+      )
+      state.users.splice(profileData, 1, action.payload)
     }
   }
 })

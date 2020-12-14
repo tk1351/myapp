@@ -13,6 +13,8 @@ import {
  import MenuIcon from '@material-ui/icons/Menu'
 import Routes from '../Routes'
 import Search from './Search'
+import { selectUser } from '../features/authSlice'
+import { useSelector } from 'react-redux'
 
  const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -46,9 +48,12 @@ import Search from './Search'
 const Navbar: React.FC = () => {
   const classes = useStyles()
 
+  const authUser = useSelector(selectUser)
+
   const isMenuList = [
     { key: '1', path: '/feed', name: 'Feed' },
     { key: '2', path: '/add', name: '投稿' },
+    { key: '3', path: `/user/edit/${authUser.uid}`, name: 'プロフィール変更' }
   ]
 
   return (

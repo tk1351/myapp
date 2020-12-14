@@ -8,6 +8,7 @@ import SearchResult from './components/SearchResult'
 import SinglePostPage from './components/SinglePostPage'
 import EditPost from './components/EditPost'
 import UserProfile from './components/UserProfile'
+import EditProfile from './components/EditProfile'
 
 const Routes: React.FC = () => {
   const q = useSelector((state: any) => state.queryParams).slice(-1)[0].values.q
@@ -21,6 +22,7 @@ const Routes: React.FC = () => {
       <Route exact path={"/post/detail/:id"} component={SinglePostPage} />
       <Route exact path="/post/edit/:id" component={EditPost} />
       <Route exact path="/user/profile/:id" component={UserProfile} />
+      <Route exact path="/user/edit/:id" component={EditProfile} />
     </Switch>
   </div>
 }

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { selectAllUsers } from '../features/userSlice'
+import { selectAllUsers, Profile } from '../features/userSlice'
 import { selectAllPosts, PostedData } from '../features/postSlice'
 import { selectAllCategories, fetchCategoriesData } from '../features/categorySlice'
 import { Avatar } from '@material-ui/core'
@@ -21,7 +21,7 @@ const UserProfile: React.FC = ({ match }: any) => {
 
   const dispatch = useDispatch()
 
-  const singleUser = users.find((user: { uid: string }) => user.uid === id)
+  const singleUser: Profile = users.find((user: { uid: string }) => user.uid === id)
   const usersPosts = posts.filter((post: { uid: string }) => post.uid === singleUser.uid)
   const orderedPosts = usersPosts
     .slice()
@@ -49,9 +49,12 @@ const UserProfile: React.FC = ({ match }: any) => {
   }
   return (
     <div>
-      userpage
       <Avatar src={singleUser.photoUrl}/>
       <p>ユーザー名：{singleUser.username}</p>
+      <p>所属： {singleUser.company}</p>
+      <p>役職： {singleUser.position}</p>
+      <p>自己紹介： {singleUser.bio}</p>
+      <p>{singleUser.url}</p>
       <h1>{singleUser.username}さんの投稿記事</h1>
       {usersPosts &&
         orderedPosts.map((post: PostProps) => (
