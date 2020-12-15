@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { auth } from '../firebase'
 import { selectUser } from '../features/authSlice'
 import { useSelector, useDispatch } from 'react-redux'
@@ -10,8 +10,12 @@ import { fetchPostData, selectAllPosts } from '../features/postSlice'
 import { fetchAvatars, selectAllUsers } from '../features/userSlice'
 import { fetchCategoriesData } from '../features/categorySlice'
 import { fetchCommentsData } from '../features/commentSlice'
+import Paginations from './Paginations'
 
 const Feed: React.FC = () => {
+  const [currentPage, setCurrentPage] = useState(1)
+  const [postsPerPage] = useState(5)
+
   const user = useSelector(selectUser)
   const posts = useSelector(selectAllPosts)
   const users = useSelector(selectAllUsers)
@@ -27,6 +31,12 @@ const Feed: React.FC = () => {
     .sort((a: { createdAt: string }, b: { createdAt: string }) =>
       b.createdAt.localeCompare(a.createdAt)
     )
+
+  const indexOfLastPost = currentPage * postsPerPage
+  const indexOfFirstPost = indexOfLastPost - postsPerPage
+  
+  const currentPosts = orderedPosts.slice(indexOfFirstPost, indexOfLastPost)
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
   
   const loginUserState = () => {
     auth.onAuthStateChanged((user) => {
@@ -83,9 +93,9 @@ const Feed: React.FC = () => {
       >
         logout
       </button>
-      {orderedPosts[0]?._id && (
+      {currentPosts[0]?._id && (
         <>
-          {orderedPosts?.map((post: PostProps) => (
+          {currentPosts?.map((post: PostProps) => (
             <>
               <Avatar src={matchUidAndPhotoUrl(post.uid)}/>
               <Post
@@ -96,6 +106,11 @@ const Feed: React.FC = () => {
           ))}
         </>
       )}
+      <Paginations
+        postsPerPage={postsPerPage}
+        totalPosts={orderedPosts.length}
+        paginate={paginate}
+      />
     </div>
   )
 }

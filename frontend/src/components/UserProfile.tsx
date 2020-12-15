@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectAllUsers, Profile } from '../features/userSlice'
 import { selectAllPosts, PostedData } from '../features/postSlice'
@@ -8,9 +8,13 @@ import { PostProps } from './Post'
 import { Link } from 'react-router-dom'
 import { selectUser } from '../features/authSlice'
 import axios from 'axios'
+import Paginations from './Paginations'
 
 const UserProfile: React.FC = ({ match }: any) => {
   const { id } = match.params
+
+  const [currentPage, setCurrentPage] = useState(1)
+  const [postsPerPage] = useState(5)
 
   const users = useSelector(selectAllUsers)
   const posts = useSelector(selectAllPosts)
@@ -23,11 +27,18 @@ const UserProfile: React.FC = ({ match }: any) => {
 
   const singleUser: Profile = users.find((user: { uid: string }) => user.uid === id)
   const usersPosts = posts.filter((post: { uid: string }) => post.uid === singleUser.uid)
+
   const orderedPosts = usersPosts
     .slice()
     .sort((a: { createdAt: string }, b: { createdAt: string }) => 
       b.createdAt.localeCompare(a.createdAt)
     )
+
+  const indexOfLastPost = currentPage * postsPerPage
+  const indexOfFirstPost = indexOfLastPost - postsPerPage
+  
+  const currentPosts = orderedPosts.slice(indexOfFirstPost, indexOfLastPost)
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
 
   useEffect(() => {
     if (categoriesStatus === 'idle') {
@@ -57,7 +68,7 @@ const UserProfile: React.FC = ({ match }: any) => {
       <p>{singleUser.url}</p>
       <h1>{singleUser.username}さんの投稿記事</h1>
       {usersPosts &&
-        orderedPosts.map((post: PostProps) => (
+        currentPosts.map((post: PostProps) => (
           <>
             <h1>{post.title}</h1>
             <p>{post.text}</p>
@@ -76,6 +87,11 @@ const UserProfile: React.FC = ({ match }: any) => {
           </>
         ))
       }
+      <Paginations 
+        postsPerPage={postsPerPage}
+        totalPosts={orderedPosts.length}
+        paginate={paginate}
+      />
     </div>
   )
 }
