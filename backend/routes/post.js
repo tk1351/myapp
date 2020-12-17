@@ -8,6 +8,6 @@ router.get('/:postId', postController.getPostsById)
 router.post('', postController.addPost)
 router.put('/:postId', postController.putById)
 router.delete('/:postId', postController.deleteById)
-router.delete('/fav/:postId', postController.deleteFavsById)
+router.delete('/user/:uid', postController.deleteByUid)
 
 module.exports = router

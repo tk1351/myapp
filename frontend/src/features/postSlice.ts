@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
+import { Profile } from './userSlice'
 
 interface PostData {
   title: string
@@ -63,6 +64,34 @@ export const deletePost = createAsyncThunk(
   }
 )
 
+// 引数がpostのものがあるため、もう一つ削除関数を追加
+export const deletePostWithPostArgument = createAsyncThunk(
+  'posts/deletePostWithPostArgument',
+  async (post: PostedData) => {
+    const url = `/api/v1/post/${post._id}`
+    const res = await axios.delete(url)
+    return res.data
+  }
+)
+
+export const deletePostWithSinglePostArgument = createAsyncThunk(
+  'posts/deletePostWithSinglePostArgument',
+  async (singlePost: PostedData) => {
+    const url = `/api/v1/post/${singlePost._id}`
+    const res = await axios.delete(url)
+    return res.data
+  }
+)
+
+export const deleteUsersPost = createAsyncThunk(
+  'posts/deleteUsersPost',
+  async (user: Profile) => {
+    const url = `/api/v1/post/user/${user.uid}`
+    const res = await axios.delete(url)
+    return res.data
+  }
+)
+
 export const postsSlice = createSlice({
   name: 'posts',
   initialState,
@@ -93,6 +122,24 @@ export const postsSlice = createSlice({
         (post: { _id: string }) => post._id === action.meta.arg._id
       )
       state.posts.splice(deletePostData, 1)
+    },
+    [deletePostWithPostArgument.fulfilled as any]: (state: any, action) => {
+      const deletePostDataWithPostArgument = state.posts.findIndex(
+        (post: { _id: string }) => post._id === action.meta.arg._id
+      )
+      state.posts.splice(deletePostDataWithPostArgument, 1)
+    },
+    [deletePostWithSinglePostArgument.fulfilled as any]: (state: any, action) => {
+      const deletePostDataWithSinglePostArgument = state.posts.findIndex(
+        (post: { _id: string }) => post._id === action.meta.arg._id
+      )
+      state.posts.splice(deletePostDataWithSinglePostArgument, 1)
+    },
+    [deleteUsersPost.fulfilled as any]: (state: any, action) => {
+      const deleteUsersPostData = state.posts.findIndex(
+        (post: { _id: string }) => post._id === action.meta.arg._id
+      )
+      state.posts.splice(deleteUsersPostData, 1)
     }
   }
 })

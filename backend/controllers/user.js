@@ -23,7 +23,7 @@ module.exports = {
     })
   },
   addUser: (req, res) => {
-    const { uid, username, photoUrl } = req.body
+    const { uid, username, photoUrl, role } = req.body
     if (!uid) {
       return res
         .status(422)
@@ -49,6 +49,7 @@ module.exports = {
         uid,
         username,
         photoUrl,
+        role,
         company: '',
         position: '',
         bio: '',
@@ -76,6 +77,7 @@ module.exports = {
         foundUser.position = req.body.position
         foundUser.bio = req.body.bio
         foundUser.url = req.body.url
+        foundUser.role = req.body.role
 
         foundUser.save((err, data) => {
           if (err) {
@@ -92,10 +94,17 @@ module.exports = {
               url: data.url,
               createdAt: data.createdAt,
               updatedAt: data.updatedAt,
+              role: data.role,
             })
           }
         })
       }
+    })
+  },
+  deleteByUid: (req, res) => {
+    const uid = req.params.uid
+    User.deleteOne({ uid }).then(() => {
+      res.json({ delete: 'success' })
     })
   },
 }

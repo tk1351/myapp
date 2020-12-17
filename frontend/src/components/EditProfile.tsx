@@ -90,7 +90,7 @@ const EditProfile: React.FC = ({ match }: any) => {
   return (
     <Container component="main" maxWidth="xs">
       <Typography component="h1" variant="h6">
-        記事を投稿する
+        プロフィールを編集する
       </Typography>
       <Formik
         initialValues={initialValues}

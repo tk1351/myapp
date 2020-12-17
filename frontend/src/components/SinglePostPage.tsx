@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectAllPosts, PostedData } from '../features/postSlice'
+import { selectAllPosts, PostedData, deletePostWithSinglePostArgument } from '../features/postSlice'
 import { selectAllCategories, fetchCategoriesData } from '../features/categorySlice'
 import { selectAllUsers, fetchAvatars } from '../features/userSlice'
 import { Avatar, TextField, Button } from '@material-ui/core'
@@ -11,7 +11,6 @@ import { Formik, Form } from 'formik'
 import { selectUser } from '../features/authSlice'
 import { unwrapResult } from '@reduxjs/toolkit'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
 import history from '../history'
 
 interface Comment {
@@ -90,11 +89,9 @@ const SinglePostPage: React.FC = ({ match }: any) => {
   )
 
   const onDeletePostClicked = async (singlePost: PostedData) => {
-    const url = `/api/v1/post/${singlePost._id}`
     if (window.confirm('記事を削除してもよろしいですか？')) {
-      await axios.delete(url).then(() => {
-        history.push('/feed')
-      })
+      dispatch(deletePostWithSinglePostArgument(singlePost))
+      history.push('/feed')
     }
   }
 
@@ -125,7 +122,6 @@ const SinglePostPage: React.FC = ({ match }: any) => {
         </>
       ) : (
         <>
-          編集不可能
         </>
       )}
       <MessageIcon onClick={() => setOpenComments(!openComments)} />
@@ -158,7 +154,6 @@ const SinglePostPage: React.FC = ({ match }: any) => {
                     required
                   />
                 </Form>
-                {/* buttonがきかない */}
                 <Button type="submit">
                   <SendIcon />
                 </Button>

@@ -105,7 +105,7 @@ const EditPost: React.FC = ({ match }: any) => {
   return (
     <Container component="main" maxWidth="xs">
       <Typography component="h1" variant="h6">
-        記事を投稿する
+        記事を編集する
       </Typography>
       <Formik
         initialValues={initialValues}

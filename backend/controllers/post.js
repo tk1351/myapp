@@ -101,9 +101,9 @@ module.exports = {
       res.json({ delete: 'success' })
     })
   },
-  deleteFavsById: (req, res) => {
-    const postId = req.params.postId
-    Fav.deleteMany({ postId }).then(() => {
+  deleteByUid: (req, res) => {
+    const uid = req.params.uid
+    Post.deleteMany({ uid }).then(() => {
       res.json({ delete: 'success' })
     })
   },

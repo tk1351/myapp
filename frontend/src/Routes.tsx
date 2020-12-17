@@ -10,6 +10,11 @@ import EditPost from './components/EditPost'
 import UserProfile from './components/UserProfile'
 import EditProfile from './components/EditProfile'
 import NotFound from './components/NotFound'
+import CategoryPage from './components/CategoryPage'
+import AdminScreen from './components/Admin/AdminScreen'
+import AdminUsersList from './components/Admin/AdminUsersList'
+import AdminPostsList from './components/Admin/AdminPostsList'
+import AdminPostDetail from './components/Admin/AdminPostDetail'
 
 const Routes: React.FC = () => {
   const q = useSelector((state: any) => state.queryParams).slice(-1)[0].values.q
@@ -24,6 +29,11 @@ const Routes: React.FC = () => {
       <Route exact path="/post/edit/:id" component={EditPost} />
       <Route exact path="/user/profile/:id" component={UserProfile} />
       <Route exact path="/user/edit/:id" component={EditProfile} />
+      <Route exact path="/category/:id" component={CategoryPage} />
+      <Route exact path="/admin" component={AdminScreen} />
+      <Route exact path="/admin/user" component={AdminUsersList} />
+      <Route exact path="/admin/post" component={AdminPostsList} />
+      <Route exact path="/admin/post/:id" component={AdminPostDetail} />
       <Route component={NotFound} />
     </Switch>
   </div>

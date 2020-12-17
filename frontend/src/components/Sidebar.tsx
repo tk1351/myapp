@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link, Router } from 'react-router-dom'
+import history from '../history'
 import { useSelector } from 'react-redux'
 import { selectAllCategories } from '../features/categorySlice'
 
@@ -11,13 +13,13 @@ const Sidebar: React.FC = () => {
   const categories = useSelector(selectAllCategories)
 
   return (
-    <>
+    <Router history={history}>
      {categories.map((category: Category) => (
        <li key={category._id}>
-         {category.name}
+         <Link to={`/category/${category._id}`}>{category.name}</Link>
        </li>
      ))}
-    </>
+    </Router>
   )
 }
 

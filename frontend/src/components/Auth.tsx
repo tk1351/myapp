@@ -115,6 +115,7 @@ const Auth: React.FC = () => {
       updateUserProfile({
         displayName: username,
         photoUrl: url,
+        role: 'user'
       })
     )
     await history.push('/feed')
@@ -122,7 +123,11 @@ const Auth: React.FC = () => {
 
   const signInEmail = async () => {
     await auth.signInWithEmailAndPassword(email, password)
-    await history.push('/feed')
+    if (email === 'admin@example.com') {
+      await history.push('/admin')
+    } else {
+      await history.push('/feed')
+    }
   }
 
   const signInGoogle = async () => {

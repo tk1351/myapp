@@ -15,6 +15,7 @@ import Routes from '../Routes'
 import Search from './Search'
 import { selectUser } from '../features/authSlice'
 import { useSelector } from 'react-redux'
+import { selectAllUsers } from '../features/userSlice'
 
  const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -49,12 +50,49 @@ const Navbar: React.FC = () => {
   const classes = useStyles()
 
   const authUser = useSelector(selectUser)
+  const users = useSelector(selectAllUsers)
 
-  const isMenuList = [
+  // loginユーザーのroleを特定
+  const findAuthUsersRole = users.find(
+    (user: { uid: string }) => user.uid === authUser.uid
+  )?.role
+
+  const isAuthMenuList = [
     { key: '1', path: '/feed', name: 'Feed' },
     { key: '2', path: '/add', name: '投稿' },
     { key: '3', path: `/user/edit/${authUser.uid}`, name: 'プロフィール変更' }
   ]
+
+  const isNotAuthMenuList = [
+    { key: '1', path: '/login', name: 'ログイン' }
+  ]
+
+  const adminMenuList = [
+    { key: '1', path: '/admin', name: '管理画面' }
+  ]
+
+  const menuList = () => {
+    if (findAuthUsersRole === 'user') {
+      return isAuthMenuList.map((menu) => (
+        <Link key={menu.key} to={menu.path}>{menu.name}</Link>
+      ))
+    } else if (findAuthUsersRole === 'admin') {
+      return adminMenuList.map((menu) => (
+        <Link key={menu.key} to={menu.path}>{menu.name}</Link>
+      )) 
+    }
+    return isNotAuthMenuList.map((menu) => (
+      <Link key={menu.key} to={menu.path}>{menu.name}</Link>
+    ))
+  }
+
+  const isAuthName = authUser ? (
+    <>
+      <p>{authUser.displayName}</p>
+    </>
+  ) : (
+    <></>
+  )
 
   return (
     <Router history={history}>
@@ -72,9 +110,8 @@ const Navbar: React.FC = () => {
             <Typography className={classes.title} variant="h6" noWrap>
               MyApp
             </Typography>
-            {isMenuList.map((menu) => (
-              <Link key={menu.key} to={menu.path}>{menu.name}</Link>
-            ))}
+            {menuList()}
+            {isAuthName}
             <Search />
             <div className={classes.grow} />
           </Toolbar>

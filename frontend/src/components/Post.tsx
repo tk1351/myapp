@@ -35,7 +35,7 @@ export const convertPostingDateToJapanTime = (createdAt: any) => {
 }
 
 const Post: React.FC<PostData> = ({ props }) => {
-  const user = useSelector(selectUser)
+  const authUser = useSelector(selectUser)
   const categories = useSelector(selectAllCategories)
   const posts = useSelector(selectAllPosts)
   const users = useSelector(selectAllUsers)
@@ -48,7 +48,7 @@ const Post: React.FC<PostData> = ({ props }) => {
   }
 
   const findOwnPostData = posts.find(
-    (post : { uid: string }) => post.uid === user.uid
+    (post : { uid: string }) => post.uid === authUser.uid
   )
 
   const onDeletePostClicked = (props: PostedData) => {

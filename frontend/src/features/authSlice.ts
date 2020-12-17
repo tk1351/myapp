@@ -4,13 +4,15 @@ import { RootState } from '../app/store';
 interface User {
   displayName: string
   photoUrl: string
+  role: string
 }
 
 const initialState = {
   user: {
     uid: '',
     photoUrl: '',
-    displayName: ''
+    displayName: '',
+    role: ''
   }
 }
 
@@ -22,11 +24,12 @@ export const authSlice = createSlice({
       state.user = action.payload
     },
     logout: (state) => {
-      state.user = { uid: '', photoUrl: '', displayName: '' }
+      state.user = { uid: '', photoUrl: '', displayName: '', role: '' }
     },
     updateUserProfile: (state, action: PayloadAction<User>) => {
       state.user.displayName = action.payload.displayName
       state.user.photoUrl = action.payload.photoUrl
+      state.user.role = action.payload.role
     }
   }
 })

@@ -35,6 +35,15 @@ export const updateUserProfile = createAsyncThunk(
   }
 )
 
+export const deleteUser = createAsyncThunk(
+  'users/deleteUser',
+  async (user: Profile) => {
+    const url = `/api/v1/user/${user.uid}`
+    const res = await axios.delete(url)
+    return res.data
+  }
+)
+
 export const usersSlice = createSlice({
   name: 'users',
   initialState,
@@ -56,6 +65,12 @@ export const usersSlice = createSlice({
         (user: { uid: string }) => user.uid === action.payload.uid
       )
       state.users.splice(profileData, 1, action.payload)
+    },
+    [deleteUser.fulfilled as any]: (state: any, action) => {
+      const deleteUsersData = state.users.findIndex(
+        (user: { _id: string }) => user._id === action.meta.arg._id
+      )
+      state.users.splice(deleteUsersData, 1)
     }
   }
 })

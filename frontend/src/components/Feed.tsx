@@ -11,6 +11,7 @@ import { fetchAvatars, selectAllUsers } from '../features/userSlice'
 import { fetchCategoriesData } from '../features/categorySlice'
 import { fetchCommentsData } from '../features/commentSlice'
 import Paginations from './Paginations'
+import AuthState from './AuthState'
 
 const Feed: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1)
@@ -48,6 +49,7 @@ const Feed: React.FC = () => {
               uid: user.uid,
               username: user.displayName,
               photoUrl: user.photoURL,
+              role: 'user'
             })
           } catch (err) {
             console.error(err)
@@ -83,7 +85,7 @@ const Feed: React.FC = () => {
   }
  
   return (
-    <div>
+    <AuthState>
       Feed
       <button
         onClick={async () => {
@@ -111,7 +113,7 @@ const Feed: React.FC = () => {
         totalPosts={orderedPosts.length}
         paginate={paginate}
       />
-    </div>
+    </AuthState>
   )
 }
 

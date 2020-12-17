@@ -19,6 +19,7 @@ import { fetchCategoriesData, selectAllCategories } from '../features/categorySl
 import { addNewPost } from '../features/postSlice'
 import { unwrapResult } from '@reduxjs/toolkit'
 import { Category } from './Sidebar';
+import AuthState from './AuthState';
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -112,103 +113,105 @@ const AddPost: React.FC = () => {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
-      <Typography component="h1" variant="h6">
-        記事を投稿する
-      </Typography>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={(values: values) => {
-          onSavePostClicked(values)
-        }}
-      >
-        {({ values, handleChange }) => (
-          <Form>
-            <TextField 
-              fullWidth 
-              variant="outlined"
-              id="outlined-basic"
-              margin="normal"
-              label="商品名"
-              name="title"
-              type="text"
-              value={values.title}
-              onChange={handleChange}
-              required
-            />
-            <TextField 
-              fullWidth 
-              variant="outlined"
-              id="outlined-basic"
-              margin="normal"
-              label="本文"
-              name="text"
-              type="text"
-              multiline
-              rows={10}
-              value={values.text}
-              onChange={handleChange}
-              required
-            />
-            <TextField 
-              fullWidth 
-              select
-              variant="outlined"
-              id="outlined-basic"
-              margin="normal"
-              label="カテゴリー"
-              name="categoryId"
-              type="text"
-              value={values.categoryId}
-              onChange={handleChange}
-              required
-            >
-              {categories.map((category: Category) => (
-                <MenuItem key={category.name} value={category._id}>
-                  {category.name}
-                </MenuItem>
-              ))}
-            </TextField>
-            <Box>
-              <IconButton
-                color="primary"
-                aria-label="upload image"
-                component="span"
+    <AuthState>
+      <Container component="main" maxWidth="xs">
+        <Typography component="h1" variant="h6">
+          記事を投稿する
+        </Typography>
+        <Formik
+          initialValues={initialValues}
+          onSubmit={(values: values) => {
+            onSavePostClicked(values)
+          }}
+        >
+          {({ values, handleChange }) => (
+            <Form>
+              <TextField 
+                fullWidth 
+                variant="outlined"
+                id="outlined-basic"
+                margin="normal"
+                label="商品名"
+                name="title"
+                type="text"
+                value={values.title}
+                onChange={handleChange}
+                required
+              />
+              <TextField 
+                fullWidth 
+                variant="outlined"
+                id="outlined-basic"
+                margin="normal"
+                label="本文"
+                name="text"
+                type="text"
+                multiline
+                rows={10}
+                value={values.text}
+                onChange={handleChange}
+                required
+              />
+              <TextField 
+                fullWidth 
+                select
+                variant="outlined"
+                id="outlined-basic"
+                margin="normal"
+                label="カテゴリー"
+                name="categoryId"
+                type="text"
+                value={values.categoryId}
+                onChange={handleChange}
+                required
               >
-                <label>
-                  <PhotoCamera fontSize="large"/>
-                  <input 
-                    type="file"
-                    onChange={onChangeImageHandler}
-                  />
-                </label>
-              </IconButton>
-            </Box>
-            <TextField 
-              fullWidth 
-              variant="outlined"
-              id="outlined-basic"
-              margin="normal"
-              label="URL"
-              name="url"
-              type="text"
-              value={values.url}
-              onChange={handleChange}
-              required
-            />
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              fullWidth
-            >
-              投稿
-            </Button>
-          </Form>
-        )}
-      </Formik>
-    </Container>
+                {categories.map((category: Category) => (
+                  <MenuItem key={category.name} value={category._id}>
+                    {category.name}
+                  </MenuItem>
+                ))}
+              </TextField>
+              <Box>
+                <IconButton
+                  color="primary"
+                  aria-label="upload image"
+                  component="span"
+                >
+                  <label>
+                    <PhotoCamera fontSize="large"/>
+                    <input 
+                      type="file"
+                      onChange={onChangeImageHandler}
+                    />
+                  </label>
+                </IconButton>
+              </Box>
+              <TextField 
+                fullWidth 
+                variant="outlined"
+                id="outlined-basic"
+                margin="normal"
+                label="URL"
+                name="url"
+                type="text"
+                value={values.url}
+                onChange={handleChange}
+                required
+              />
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                fullWidth
+              >
+                投稿
+              </Button>
+            </Form>
+          )}
+        </Formik>
+      </Container>
+    </AuthState>
   )
 }
 

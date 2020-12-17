@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectAllUsers, Profile } from '../features/userSlice'
-import { selectAllPosts, PostedData } from '../features/postSlice'
+import { selectAllPosts, PostedData, deletePostWithPostArgument } from '../features/postSlice'
 import { selectAllCategories, fetchCategoriesData } from '../features/categorySlice'
 import { Avatar } from '@material-ui/core'
 import { PostProps } from './Post'
 import { Link } from 'react-router-dom'
 import { selectUser } from '../features/authSlice'
-import axios from 'axios'
 import Paginations from './Paginations'
 
 const UserProfile: React.FC = ({ match }: any) => {
@@ -53,9 +52,8 @@ const UserProfile: React.FC = ({ match }: any) => {
   const findOwnPostData = posts.find((post: { uid: string }) => post.uid === authUser.uid)
 
   const onDeletePostClicked = async (post: PostedData) => {
-    const url = `/api/v1/post/${post._id}`
     if (window.confirm('記事を削除してもよろしいですか？')) {
-      await axios.delete(url, post)
+      dispatch(deletePostWithPostArgument(post))
     }
   }
   return (
