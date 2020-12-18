@@ -15,12 +15,14 @@ import AdminScreen from './components/Admin/AdminScreen'
 import AdminUsersList from './components/Admin/AdminUsersList'
 import AdminPostsList from './components/Admin/AdminPostsList'
 import AdminPostDetail from './components/Admin/AdminPostDetail'
+import Home from './components/Home'
 
 const Routes: React.FC = () => {
   const q = useSelector((state: any) => state.queryParams).slice(-1)[0].values.q
 
   return <div>
     <Switch>
+      <Route exact path="/" component={Home} />
       <Route exact path="/feed" component={Feed} />
       <Route exact path="/add" component={AddPost} />
       <Route exact path="/login" component={Auth} />

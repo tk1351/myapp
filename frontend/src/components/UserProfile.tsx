@@ -8,6 +8,7 @@ import { PostProps } from './Post'
 import { Link } from 'react-router-dom'
 import { selectUser } from '../features/authSlice'
 import Paginations from './Paginations'
+import Sidebar from './Sidebar'
 
 const UserProfile: React.FC = ({ match }: any) => {
   const { id } = match.params
@@ -90,6 +91,7 @@ const UserProfile: React.FC = ({ match }: any) => {
         totalPosts={orderedPosts.length}
         paginate={paginate}
       />
+      <Sidebar />
     </div>
   )
 }

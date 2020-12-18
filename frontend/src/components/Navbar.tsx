@@ -1,5 +1,6 @@
 import React from 'react'
 import { Router, Link } from 'react-router-dom'
+import { auth } from '../firebase'
 import history from '../history'
 import { 
   makeStyles,
@@ -60,7 +61,7 @@ const Navbar: React.FC = () => {
   const isAuthMenuList = [
     { key: '1', path: '/feed', name: 'Feed' },
     { key: '2', path: '/add', name: '投稿' },
-    { key: '3', path: `/user/edit/${authUser.uid}`, name: 'プロフィール変更' }
+    { key: '3', path: `/user/edit/${authUser.uid}`, name: 'プロフィール変更' },
   ]
 
   const isNotAuthMenuList = [
@@ -73,9 +74,21 @@ const Navbar: React.FC = () => {
 
   const menuList = () => {
     if (findAuthUsersRole === 'user') {
-      return isAuthMenuList.map((menu) => (
-        <Link key={menu.key} to={menu.path}>{menu.name}</Link>
-      ))
+      return (
+        <>
+          {isAuthMenuList.map((menu) => (
+              <Link key={menu.key} to={menu.path}>{menu.name}</Link>
+          ))}
+          <button
+            onClick={async () => {
+              await auth.signOut()
+              await history.push('/login')
+            }}
+          >
+            ログアウト
+          </button>
+        </>
+      )
     } else if (findAuthUsersRole === 'admin') {
       return adminMenuList.map((menu) => (
         <Link key={menu.key} to={menu.path}>{menu.name}</Link>

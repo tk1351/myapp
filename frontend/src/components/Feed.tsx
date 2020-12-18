@@ -5,13 +5,13 @@ import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 import Post, { PostProps } from './Post'
 import { Avatar } from '@material-ui/core'
-import history from '../history'
 import { fetchPostData, selectAllPosts } from '../features/postSlice'
 import { fetchAvatars, selectAllUsers } from '../features/userSlice'
 import { fetchCategoriesData } from '../features/categorySlice'
 import { fetchCommentsData } from '../features/commentSlice'
 import Paginations from './Paginations'
 import AuthState from './AuthState'
+import Sidebar from './Sidebar'
 
 const Feed: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1)
@@ -87,14 +87,6 @@ const Feed: React.FC = () => {
   return (
     <AuthState>
       Feed
-      <button
-        onClick={async () => {
-          await auth.signOut()
-          await history.push('/login')
-        }}
-      >
-        logout
-      </button>
       {currentPosts[0]?._id && (
         <>
           {currentPosts?.map((post: PostProps) => (
@@ -113,6 +105,7 @@ const Feed: React.FC = () => {
         totalPosts={orderedPosts.length}
         paginate={paginate}
       />
+      <Sidebar />
     </AuthState>
   )
 }

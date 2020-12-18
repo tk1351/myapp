@@ -5,6 +5,10 @@ WORKDIR /myapp/frontend
 COPY frontend/package.json .
 COPY frontend/yarn.lock .
 RUN yarn install
+RUN yarn global add firebase-tools
+
+RUN apk update \
+    && apk --no-cache add openjdk11-jre-headless
 
 COPY ./frontend .
 

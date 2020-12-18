@@ -12,6 +12,7 @@ import { selectUser } from '../features/authSlice'
 import { unwrapResult } from '@reduxjs/toolkit'
 import { Link } from 'react-router-dom'
 import history from '../history'
+import Sidebar from './Sidebar'
 
 interface Comment {
   _id: string,
@@ -162,6 +163,7 @@ const SinglePostPage: React.FC = ({ match }: any) => {
           </Formik>
         </>
       )}
+      <Sidebar />
     </div>
   )
 }

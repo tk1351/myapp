@@ -7,6 +7,7 @@ import { selectUser } from '../features/authSlice'
 import { PostProps } from './Post'
 import { Link } from 'react-router-dom'
 import { Avatar } from '@material-ui/core'
+import Sidebar from './Sidebar'
 
 const CategoryPage: React.FC = ({ match }: any) => {
   const { id } = match.params
@@ -85,6 +86,7 @@ const CategoryPage: React.FC = ({ match }: any) => {
           ))}
         </>
       )}
+      <Sidebar />
     </div>
   )
 }
