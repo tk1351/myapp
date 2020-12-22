@@ -6,6 +6,8 @@ jobs:
     steps:
       - checkout
       - run:
+          command: apt-key list
+      - run:
           command: sudo apt-get update && sudo apt-get install yarn
       - run:
           command: docker-compose up --build -d
