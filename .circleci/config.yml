@@ -28,21 +28,23 @@ jobs:
           command: node -v
       - run:
           command: sudo locate libcrypto.so.1.0.0
+      - run:
+          command: ls
       # - run:
       #     command: sudo apt-get install libssl1.0.0 libssl-dev
       # - run:
       #     command: cd /lib/x86_64-linux-gnu && sudo ln -s libssl.so.1.0.0 libssl.so.10 && sudo ln -s libcrypto.so.1.0.0 libcrypto.so.10
-      - run:
-          command: docker-compose up --build -d
-      - run:
-          command: cd frontend && yarn install --frozon-lockfile && ls
-      - run:
-          command: cd backend && yarn install --frozon-lockfile && ls
-      - run:
-          command: docker-compose up -d
-      - run:
-          command: docker-compose exec frontend yarn test --watchAll=false
-      - run:
-          command: docker-compose exec backend yarn test --watchAll=false
-      - run:
-          command: docker-compose down
+      # - run:
+      #     command: docker-compose up --build -d
+      # - run:
+      #     command: cd frontend && yarn install --frozon-lockfile && ls
+      # - run:
+      #     command: cd backend && yarn install --frozon-lockfile && ls
+      # - run:
+      #     command: docker-compose up -d
+      # - run:
+      #     command: docker-compose exec frontend yarn test --watchAll=false
+      # - run:
+      #     command: docker-compose exec backend yarn test --watchAll=false
+      # - run:
+      #     command: docker-compose down
