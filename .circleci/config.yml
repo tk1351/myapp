@@ -6,6 +6,8 @@ jobs:
     steps:
       - checkout
       - run:
+          command: apk update && apk add sudo curl docker docker-compose yarn
+      - run:
           command: docker-compose up --build -d
       - run:
           command: cd frontend && yarn install --frozon-lockfile && ls
