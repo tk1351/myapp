@@ -24,14 +24,6 @@ jobs:
       - checkout
       - run:
           command: apk update && apk add sudo curl docker docker-compose yarn
-      # - run:
-      #     command: |
-      #       curl -fsSL https://get.docker.com/ | sh
-      # - run:
-      #     command: |
-      #       sudo curl -L --fail https://github.com/docker/compose/releases/download/1.27.2/run.sh -o /usr/local/bin/docker-compose
-      #       sudo chmod +x /usr/local/bin/docker-compose
-      #       docker-compose --version
       - setup_remote_docker:
           version: 19.03.12
       - run:
@@ -42,8 +34,6 @@ jobs:
           command: cd backend && yarn install --frozon-lockfile && ls
       - run:
           command: docker-compose up -d
-      - run:
-          command: docker-compose ps
       - run:
           command: docker-compose exec frontend yarn test --watchAll=false
       - run:
