@@ -6,7 +6,7 @@ jobs:
     steps:
       - checkout
       - run:
-          command: apt-get update && apt-get install sudo curl docker docker-compose yarn
+          command: apt-get update && apt-get install yarn
       - run:
           command: docker-compose up --build -d
       - run:
