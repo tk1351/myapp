@@ -16,7 +16,7 @@ jobs:
       - run:
           command: curl -sL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
       - run:
-          command: sudo apt-get install -y nodejs
+          command: sudo apt-get install -y nodejs && node -v
       - run:
           command: docker-compose up --build -d
       - run:
