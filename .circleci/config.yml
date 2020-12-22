@@ -6,7 +6,13 @@ jobs:
     steps:
       - checkout
       - run:
-          command: docker-compose up
+          command: docker-compose up --build -d
+      - run:
+          command: cd frontend && yarn install --frozon-lockfile && ls
+      - run:
+          command: cd backend && yarn install --frozon-lockfile && ls
+      - run:
+          command: docker-compose up -d
       - run:
           command: docker-compose exec frontend yarn test --watchAll=false
       - run:
