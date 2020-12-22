@@ -11,9 +11,9 @@ jobs:
       - run: |
           node -v
       - run: |
-          nvm install v10
+          nvm install v14.15.1
           node -v
-          nvm alias default v10
+          nvm alias default v14.15.1
       - run: |
           node -v
       - run:
@@ -24,12 +24,6 @@ jobs:
           command: echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
       - run:
           command: sudo apt-get update && sudo apt-get install yarn
-      # - run:
-      #     command: curl -sL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-      # - run:
-      #     command: sudo apt-get install -y nodejs npm
-      # - run:
-      #     command: sudo npm install n -g && sudo n stable && sudo apt purge -y nodejs npm
       - run:
           command: node -v
       - run:
