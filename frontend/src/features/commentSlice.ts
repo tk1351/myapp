@@ -50,6 +50,10 @@ export const commentSlice = createSlice({
     },
     [addNewComment.fulfilled as any]: (state: any, action) => {
       state.comments.push(action.payload)
+    },
+    [addNewComment.rejected as any]: (state, action) => {
+      state.status = 'failed'
+      state.error = action.error.message
     }
   }
 })

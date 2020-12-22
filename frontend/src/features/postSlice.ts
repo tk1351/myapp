@@ -64,7 +64,7 @@ export const deletePost = createAsyncThunk(
   }
 )
 
-// 引数がpostのものがあるため、もう一つ削除関数を追加
+// 引数がpostのものがあるため、2つ削除関数を追加
 export const deletePostWithPostArgument = createAsyncThunk(
   'posts/deletePostWithPostArgument',
   async (post: PostedData) => {
@@ -111,11 +111,19 @@ export const postsSlice = createSlice({
     [addNewPost.fulfilled as any]: (state: any, action) => {
       state.posts.push(action.payload)
     },
+    [addNewPost.rejected as any]: (state, action) => {
+      state.status = 'failed'
+      state.error = action.error.message
+    },
     [updatePost.fulfilled as any]: (state: any, action) => {
       const postData = state.posts.findIndex(
         (post: { _id: string }) => post._id === action.payload._id
       )
       state.posts.splice(postData, 1, action.payload)
+    },
+    [updatePost.rejected as any]: (state, action) => {
+      state.status = 'failed'
+      state.error = action.error.message
     },
     [deletePost.fulfilled as any]: (state: any, action) => {
       const deletePostData = state.posts.findIndex(
@@ -123,11 +131,19 @@ export const postsSlice = createSlice({
       )
       state.posts.splice(deletePostData, 1)
     },
+    [deletePost.rejected as any]: (state, action) => {
+      state.status = 'failed'
+      state.error = action.error.message
+    },
     [deletePostWithPostArgument.fulfilled as any]: (state: any, action) => {
       const deletePostDataWithPostArgument = state.posts.findIndex(
         (post: { _id: string }) => post._id === action.meta.arg._id
       )
       state.posts.splice(deletePostDataWithPostArgument, 1)
+    },
+    [deletePostWithPostArgument.rejected as any]: (state, action) => {
+      state.status = 'failed'
+      state.error = action.error.message
     },
     [deletePostWithSinglePostArgument.fulfilled as any]: (state: any, action) => {
       const deletePostDataWithSinglePostArgument = state.posts.findIndex(
@@ -135,11 +151,19 @@ export const postsSlice = createSlice({
       )
       state.posts.splice(deletePostDataWithSinglePostArgument, 1)
     },
+    [deletePostWithSinglePostArgument.rejected as any]: (state, action) => {
+      state.status = 'failed'
+      state.error = action.error.message
+    },
     [deleteUsersPost.fulfilled as any]: (state: any, action) => {
       const deleteUsersPostData = state.posts.findIndex(
         (post: { _id: string }) => post._id === action.meta.arg._id
       )
       state.posts.splice(deleteUsersPostData, 1)
+    },
+    [deleteUsersPost.rejected as any]: (state, action) => {
+      state.status = 'failed'
+      state.error = action.error.message
     }
   }
 })

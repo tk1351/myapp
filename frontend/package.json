@@ -57,6 +57,7 @@
   },
   "proxy": "http://backend:8080",
   "devDependencies": {
-    "@firebase/rules-unit-testing": "^1.1.6"
+    "@firebase/rules-unit-testing": "^1.1.6",
+    "@types/duplexify": "^3.6.0"
   }
 }

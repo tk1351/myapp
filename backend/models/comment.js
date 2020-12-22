@@ -3,10 +3,10 @@ const Schema = mongoose.Schema
 
 const CommentSchema = new Schema(
   {
-    uid: { type: String },
-    photoUrl: { type: String },
-    text: { type: String },
-    postId: { type: String },
+    uid: { type: String, required: true },
+    photoUrl: { type: String, required: true },
+    text: { type: String, required: true },
+    postId: { type: String, required: true },
   },
   {
     timestamps: true,

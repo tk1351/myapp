@@ -66,11 +66,19 @@ export const usersSlice = createSlice({
       )
       state.users.splice(profileData, 1, action.payload)
     },
+    [updateUserProfile.rejected as any]: (state, action) => {
+      state.status = 'failed'
+      state.error = action.error.message
+    },
     [deleteUser.fulfilled as any]: (state: any, action) => {
       const deleteUsersData = state.users.findIndex(
         (user: { _id: string }) => user._id === action.meta.arg._id
       )
       state.users.splice(deleteUsersData, 1)
+    },
+    [deleteUser.rejected as any]: (state: any, action) => {
+      state.status = 'failed'
+      state.error = action.error.message
     }
   }
 })
