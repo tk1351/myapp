@@ -27,9 +27,11 @@ jobs:
       - run:
           command: node -v
       - run:
-          command: sudo apt-get install libssl1.0.0 libssl-dev
-      - run:
-          command: cd /lib/x86_64-linux-gnu && sudo ln -s libssl.so.1.0.0 libssl.so.10 && sudo ln -s libcrypto.so.1.0.0 libcrypto.so.10
+          command: sudo apt-get install curl libcurl3
+      # - run:
+      #     command: sudo apt-get install libssl1.0.0 libssl-dev
+      # - run:
+      #     command: cd /lib/x86_64-linux-gnu && sudo ln -s libssl.so.1.0.0 libssl.so.10 && sudo ln -s libcrypto.so.1.0.0 libcrypto.so.10
       - run:
           command: docker-compose up --build -d
       - run:
