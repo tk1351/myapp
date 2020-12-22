@@ -6,7 +6,7 @@ jobs:
     steps:
       - checkout
       - run:
-          command: docker-compose up -d
+          command: docker-compose up
       - run:
           command: docker-compose exec frontend yarn test --watchAll=false
       - run:
