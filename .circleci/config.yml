@@ -1,42 +1,10 @@
 version: 2.1
-orbs:
-  node: circleci/node@3.0.0
-workflows:
-  my-workflow:
-    jobs:
-      - build:
-          context:
-            - dockerhub-creds
-
 jobs:
   build:
-    docker:
-      - image: tk1351/myapp:frontendv4
-        auth:
-          username: $DOCKERHUB_USER
-          password: $DOCKERHUB_PASSWORD
-      - image: tk1351/myapp:backendv4
-        auth:
-          username: $DOCKERHUB_USER
-          password: $DOCKERHUB_PASSWORD
-    working_directory: ~/myapp
+    machine:
+      image: ubuntu-1604:201903-01
     steps:
-      - checkout
-      - run:
-          command: apk update && apk add sudo curl docker docker-compose yarn
-      - setup_remote_docker:
-          version: 19.03.12
-      - run:
-          command: docker-compose up --build -d
-      - run:
-          command: cd frontend && yarn install --frozon-lockfile && ls
-      - run:
-          command: cd backend && yarn install --frozon-lockfile && ls
       - run:
           command: docker-compose up -d
-      - run:
-          command: docker-compose exec frontend yarn test --watchAll=false
-      - run:
-          command: docker-compose exec backend yarn test --watchAll=false
       - run:
           command: docker-compose down
