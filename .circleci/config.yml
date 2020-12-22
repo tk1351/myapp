@@ -14,9 +14,11 @@ jobs:
       - run:
           command: sudo apt-get update && sudo apt-get install yarn
       - run:
+          command: nvm install --lts --latest-npm
+      - run:
           command: docker-compose up --build -d
       - run:
-          command: cd frontend && ls
+          command: cd frontend && yarn install --frozon-lockfile && ls
       - run:
           command: cd backend && yarn install --frozon-lockfile && ls
       - run:
