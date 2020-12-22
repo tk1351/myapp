@@ -8,7 +8,7 @@ jobs:
       - run:
           command: gpg --recv-key 78BD65473CB3BD13 && gpg -a --export 78BD65473CB3BD13 | sudo apt-key add -
       - run:
-          command: sudo apt update
+          command: sudo apt update && sudo apt install yarn
       - run:
           command: docker-compose up --build -d
       - run:
