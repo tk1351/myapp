@@ -18,8 +18,6 @@ jobs:
       - run:
           command: sudo apt-get install -y nodejs
       - run:
-          command: nvm install --lts --latest-npm
-      - run:
           command: docker-compose up --build -d
       - run:
           command: cd frontend && yarn install --frozon-lockfile && ls
