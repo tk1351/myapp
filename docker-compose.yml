@@ -11,9 +11,9 @@ services:
       - '9099:9099' #Auth
       - '4000:4000' #Emulators
       - '9090:9090' #firestore
-    volumes:
-      - ./frontend:/myapp/frontend
-      - yarn-cache:/usr/local/share/.cache/yarn/v6
+    # volumes:
+    #   - ./frontend:/myapp/frontend
+    #   - yarn-cache:/usr/local/share/.cache/yarn/v6
     tty: true
 
   backend:
@@ -23,10 +23,9 @@ services:
     command: 'yarn start'
     ports:
       - '8080:8080'
-    volumes:
-      - ./backend:/myapp/backend
+    # volumes:
+    #   - ./backend:/myapp/backend
     environment:
       CHOKIDAR_USEPOLLING: 1
-
-volumes:
-  yarn-cache:
+# volumes:
+#   yarn-cache:

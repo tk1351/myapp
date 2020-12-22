@@ -41,7 +41,7 @@ jobs:
       - run:
           command: cd backend && yarn install --frozon-lockfile && ls
       - run:
-          command: docker-compose up
+          command: docker-compose up -d
       - run:
           command: docker-compose ps
       - run:
