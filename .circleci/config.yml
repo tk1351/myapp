@@ -24,18 +24,18 @@ jobs:
           command: echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
       - run:
           command: sudo apt-get update && sudo apt-get install yarn
-      - run:
-          command: curl -sL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-      - run:
-          command: sudo apt-get install -y nodejs npm
-      - run:
-          command: sudo npm install n -g && sudo n stable && sudo apt purge -y nodejs npm
+      # - run:
+      #     command: curl -sL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+      # - run:
+      #     command: sudo apt-get install -y nodejs npm
+      # - run:
+      #     command: sudo npm install n -g && sudo n stable && sudo apt purge -y nodejs npm
       - run:
           command: node -v
       - run:
           command: docker-compose up --build -d
       - run:
-          command: cd frontend && nodejs -v && ls
+          command: cd frontend && yarn install --frozon-lockfile && ls
       - run:
           command: cd backend && yarn install --frozon-lockfile && ls
       - run:
