@@ -8,6 +8,8 @@ jobs:
       - run:
           command: gpg --recv-key 78BD65473CB3BD13 && gpg -a --export 78BD65473CB3BD13 | sudo apt-key add -
       - run:
+          command: sudo apt remove yarn
+      - run:
           command: curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
       - run:
           command: echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
