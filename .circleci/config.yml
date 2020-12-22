@@ -27,7 +27,7 @@ jobs:
       - run:
           command: node -v
       - run:
-          command: sudo apt-get install curl libcurl3
+          command: sudo locate libcrypto.so.1.0.0
       # - run:
       #     command: sudo apt-get install libssl1.0.0 libssl-dev
       # - run:
