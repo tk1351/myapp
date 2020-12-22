@@ -27,7 +27,7 @@ jobs:
       - run:
           command: node -v
       - run:
-          command: sudo apt-get install libssl1.0.0
+          command: sudo apt-get install libssl1.0.0 && sudo apt-get install lsb-core
       - run:
           command: node -v
       - run:
