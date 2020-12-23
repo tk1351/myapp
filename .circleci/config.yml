@@ -38,10 +38,12 @@ jobs:
       #     command: cd .. && ls
       # - run:
       #     command: sudo cp /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 /myapp/backend/libcrypto/
+      # - run:
+      #     command: docker-compose up --build -d
       - run:
-          command: docker-compose up --build -d
+          command: cd .. && cd lib/x86_64-linux-gnu && ls
       - run:
-          command: cd backend && mkdir libcrypto && ls && sudo cp -r /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 /libcrypto/
+          command: cd backend && mkdir libcrypto && ls && sudo cp -r /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 /libcrypto
       - run:
           command: cd backend && cd libcrypto && ls
       # - run:
