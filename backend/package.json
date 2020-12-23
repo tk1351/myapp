@@ -26,7 +26,7 @@
   "scripts": {
     "start": "node-dev index.js",
     "dev": "nodemon -L index.js",
-    "test": "jest"
+    "test": "jest --runInBand"
   },
   "jest": {
     "preset": "@shelf/jest-mongodb"
