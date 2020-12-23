@@ -37,7 +37,7 @@ jobs:
       - run:
           command: cd .. && ls
       - run:
-          command: sudo cp /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 /project/backend/libcrypto/
+          command: sudo cp /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 /libcrypto/
       - run:
           command: docker-compose up --build -d
       - run:
