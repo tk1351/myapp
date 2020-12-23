@@ -35,6 +35,8 @@ jobs:
       - run:
           command: cd backend && mkdir libcrypto && ls
       - run:
+          command: ls
+      - run:
           command: sudo cp /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 /backend/libcrypto/
       - run:
           command: docker-compose up --build -d
