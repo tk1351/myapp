@@ -23,5 +23,5 @@ script:
   - docker-compose up -d
   - docker-compose exec frontend yarn test --watchAll=false
   - docker-compose exec backend cp libcrypto/libcrypto.so.1.0.0 node_modules/.cache/mongodb-memory-server/mongodb-binaries/4.0.14/mongod
-  - docker-compose exec backend yarn test --watchAll=false
+  - docker-compose exec backend yarn test --watchAll=false --coverage
   - docker-compose down
