@@ -16,12 +16,15 @@ module.exports.connect = async () => {
     reconnectInterval: 1000,
   }
 
-  await mongoose.connect(uri, mongooseOpts)
+  await mongoose.connect(uri, mongooseOpts, (err) => {
+    if (err) console.error(err)
+  })
 }
 
 module.exports.closeDB = async () => {
-  await mongoose.connection.dropDatabase()
-  await mongoose.connection.close()
+  // await mongoose.connection.dropDatabase()
+  await mongoose.disconnect()
+  // await mongoose.connection.close()
   await mongod.stop()
 }
 
