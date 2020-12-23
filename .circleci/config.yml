@@ -47,7 +47,7 @@ jobs:
       - run:
           command: docker-compose exec frontend yarn test --watchAll=false
       - run:
-          command: docker-compose exec backend /bin/bash -c "cd node_modules && cd .cache && cd ^@^@mongodb-memory-server && ls"
+          command: docker-compose exec backend /bin/bash -c "cd node_modules && cd .cache && cd mongodb-memory-server && ls"
       # - run:
       #     command: docker-compose exec backend yarn test --watchAll=false
       - run:
