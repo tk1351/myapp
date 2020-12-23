@@ -32,12 +32,12 @@ jobs:
       #     command: cd backend && ls
       # - run:
       #     command: sudo apt-get install libssl1.0.0 libssl-dev
-      # - run:
-      #     command: cd backend && mkdir libcrypto && ls
+      - run:
+          command: cd backend && mkdir libcrypto && ls
       # - run:
       #     command: cd .. && ls
-      # - run:
-      #     command: sudo cp /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 /project/backend/libcrypto/
+      - run:
+          command: sudo cp /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 /myapp/backend/libcrypto/
       - run:
           command: docker-compose up --build -d
       - run:
