@@ -38,28 +38,26 @@ jobs:
       #     command: cd .. && ls
       # - run:
       #     command: sudo cp /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 /myapp/backend/libcrypto/
-      # - run:
-      #     command: docker-compose up --build -d
-      - run:
-          command: sudo locate /lib/x86_64-linux-gnu/
       - run:
           command: cd backend && mkdir libcrypto && ls && sudo cp /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 libcrypto
       - run:
           command: cd backend && cd libcrypto && ls
+      - run:
+          command: docker-compose up --build -d
       # - run:
       #     command: pwd && sudo cp /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 /project/backend/libcrypto/
-      # - run:
-      #     command: cd frontend && yarn install --frozon-lockfile && ls
-      # - run:
-      #     command: cd backend && yarn install --frozon-lockfile && ls
+      - run:
+          command: cd frontend && yarn install --frozon-lockfile && ls
+      - run:
+          command: cd backend && yarn install --frozon-lockfile && ls
       # # - run:
       #     command: sudo cp /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 /myapp/backend/node_modules/.cache/mongodb-memory-server/mongodb-binaries/4.0.14/mongod/
-      # - run:
-      #     command: docker-compose up -d
+      - run:
+          command: docker-compose up -d
       # - run:
       #     command: docker-compose exec frontend yarn test --watchAll=false
-      # - run:
-      #     command: docker-compose exec backend cp /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 /node_modules/.cache/mongodb-memory-server/mongodb-binaries/4.0.14/mongod/
+      - run:
+          command: docker-compose exec backend /bin/bash -c "cd libcrypto && ls"
       # - run:
       #     command: docker-compose exec backend rm -rf /node_modules/.cache/
       # - run:
