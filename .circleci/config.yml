@@ -43,7 +43,7 @@ jobs:
       - run:
           command: sudo locate /lib/x86_64-linux-gnu/
       - run:
-          command: cd backend && mkdir libcrypto && ls && sudo cp -r /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 /libcrypto
+          command: cd backend && mkdir libcrypto && ls && sudo cp /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 libcrypto
       - run:
           command: cd backend && cd libcrypto && ls
       # - run:
