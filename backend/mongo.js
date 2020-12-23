@@ -1,7 +1,10 @@
 const { MongoMemoryServer } = require('mongodb-memory-server')
 const mongoose = require('mongoose')
 
-const mongod = new MongoMemoryServer({ debug: true })
+const mongod = new MongoMemoryServer({
+  autoStart: true,
+  debug: true,
+})
 
 module.exports.connect = async () => {
   const uri = await mongod.getConnectionString()
