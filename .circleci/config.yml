@@ -32,12 +32,12 @@ jobs:
       #     command: cd backend && ls
       # - run:
       #     command: sudo apt-get install libssl1.0.0 libssl-dev
-      - run:
-          command: cd backend && mkdir libcrypto && ls
-      - run:
-          command: cd .. && ls
-      - run:
-          command: sudo cp /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 /project/backend/libcrypto/
+      # - run:
+      #     command: cd backend && mkdir libcrypto && ls
+      # - run:
+      #     command: cd .. && ls
+      # - run:
+      #     command: sudo cp /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 /project/backend/libcrypto/
       - run:
           command: docker-compose up --build -d
       - run:
@@ -50,8 +50,10 @@ jobs:
           command: docker-compose up -d
       - run:
           command: docker-compose exec frontend yarn test --watchAll=false
+      # - run:
+      #     command: docker-compose exec backend cp /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 /node_modules/.cache/mongodb-memory-server/mongodb-binaries/4.0.14/mongod/
       - run:
-          command: docker-compose exec backend cp /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 /node_modules/.cache/mongodb-memory-server/mongodb-binaries/4.0.14/mongod/
+          command: docker-compose exec backend rm -rf /node_modules/.cache/
       - run:
           command: docker-compose exec backend yarn test --watchAll=false
       - run:
