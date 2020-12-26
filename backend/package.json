@@ -26,14 +26,15 @@
   "scripts": {
     "start": "node-dev index.js",
     "dev": "nodemon -L index.js",
-    "test": "jest"
+    "test": "jest --maxWorkers 4 --detectOpenHandles"
   },
   "jest": {
     "preset": "@shelf/jest-mongodb"
   },
   "config": {
     "mongodbMemoryServer": {
-      "debug": "1"
+      "debug": "1",
+      "version": "4.2.3"
     }
   }
 }

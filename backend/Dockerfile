@@ -4,9 +4,9 @@ WORKDIR /myapp/backend
 
 COPY backend/package.json .
 COPY backend/yarn.lock .
-RUN yarn install
 
 COPY ./backend .
+RUN rm -rf node_modules && yarn install
 
 EXPOSE 8080
 

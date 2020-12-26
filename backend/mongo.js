@@ -1,19 +1,14 @@
 const { MongoMemoryServer } = require('mongodb-memory-server')
 const mongoose = require('mongoose')
 
-const mongod = new MongoMemoryServer()
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
 
 module.exports.connect = async () => {
-  const uri = await mongod.getConnectionString()
+  mongod = await new MongoMemoryServer({ binary: { version: '4.0.14' } })
+  const uri = await mongod.getUri()
 
-  const mongooseOpts = {
-    useNewUrlParser: true,
-    autoReconnect: true,
-    reconnectTries: Number.MAX_VALUE,
-    reconnectInterval: 1000,
-  }
-
-  await mongoose.connect(uri, mongooseOpts)
+  await mongoose.connect(uri, { useNewUrlParser: true })
+  mongoose.set('debug', true)
 }
 
 module.exports.closeDB = async () => {
