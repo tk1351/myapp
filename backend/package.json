@@ -33,7 +33,8 @@
   },
   "config": {
     "mongodbMemoryServer": {
-      "debug": "1"
+      "debug": "1",
+      "version": "4.2.3"
     }
   }
 }
