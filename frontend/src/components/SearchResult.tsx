@@ -27,7 +27,7 @@ const SearchResult: React.FC = () => {
 
   useEffect(() => {
     fetchPostsDataByQueryParams()
-  }, [q])
+  }, [])
 
   const orderdPosts = postLists
     .slice()

@@ -13,7 +13,7 @@ const router = require('./routes')
 
 app.use(cors())
 
-mongoose.connect(config.DB_URI, {
+mongoose.connect(process.env.MONGODB_URI || config.DB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,

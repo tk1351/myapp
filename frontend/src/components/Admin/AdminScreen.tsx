@@ -6,7 +6,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { fetchPostData } from '../../features/postSlice'
 import { fetchAvatars } from '../../features/userSlice'
 import { fetchCategoriesData } from '../../features/categorySlice'
-import AdminState from './AdminState'
 
 const AdminScreen: React.FC = () => {
   const postStatus = useSelector((state: any) => state.postData.status)
