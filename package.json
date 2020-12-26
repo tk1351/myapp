@@ -1,5 +1,0 @@
-{
-  "scripts": {
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn --cwd frontend install && yarn --cwd frontend build"
-  }
-}
