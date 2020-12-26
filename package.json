@@ -4,6 +4,6 @@
     "yarn": "1.22.4"
   },
   "scripts": {
-    "start": "cd frontend && serve -s build"
+    "start": "react-scripts start"
   }
 }
