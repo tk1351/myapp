@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 //   autoStart: true,
 //   debug: true,
 // })
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
 
 module.exports.connect = async () => {
   mongod = await new MongoMemoryServer({ binary: { version: '4.0.14' } })

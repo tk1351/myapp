@@ -52,9 +52,7 @@ afterAll(async () => {
 })
 
 describe('User model test', () => {
-  jest.useFakeTimers()
   it('User model works correctly', async () => {
-    jest.runAllTimers()
     const result = await User.find({})
     expect(result).toEqual(
       expect.arrayContaining([
