@@ -9,7 +9,7 @@ let mongod
 // })
 
 module.exports.connect = async () => {
-  mongod = await MongoMemoryServer.create({ binary: { version: 'latest' } })
+  mongod = await new MongoMemoryServer({ binary: { version: '4.0.14' } })
   const uri = await mongod.getConnectionString()
 
   // const mongooseOpts = {
