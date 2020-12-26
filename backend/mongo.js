@@ -9,9 +9,8 @@ let mongod
 // })
 
 module.exports.connect = async () => {
-  jasmine.DEFAULT_TIMEOUT_INTERVAL = 120000
-  mongod = new MongoMemoryServer()
-  const uri = await mongod.getUri()
+  mongod = await MongoMemoryServer.create({ binary: { version: 'latest' } })
+  const uri = await mongod.getConnectionString()
 
   // const mongooseOpts = {
   //   useNewUrlParser: true,
