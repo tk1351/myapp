@@ -13,15 +13,15 @@ before_install:
   - sudo apt-get update
   - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
   - cd backend && mkdir libcrypto && sudo cp /lib/x86_64-linux-gnu/libcrypto.so.1.0.0 libcrypto
-  - cd ..
-  - docker-compose up --build -d
-  - cd frontend && yarn install --frozon-lockfile
-  - cd .. && cd backend && yarn install --frozon-lockfile
-  - cd .. && sudo locate libcrypto.so.1.0.0
+  - cd .. && sudo locate libcurl.so.4
+#   - docker-compose up --build -d
+#   - cd frontend && yarn install --frozon-lockfile
+#   - cd .. && cd backend && yarn install --frozon-lockfile
+#   - cd .. && sudo locate libcrypto.so.1.0.0
 
-script:
-  - docker-compose up -d
-  - docker-compose exec frontend yarn test --watchAll=false
-  - docker-compose exec backend cp libcrypto/libcrypto.so.1.0.0 node_modules/.cache/mongodb-memory-server/mongodb-binaries/4.0.14/mongod
-  - docker-compose exec backend yarn test --watchAll=false --coverage
-  - docker-compose down
+# script:
+#   - docker-compose up -d
+#   - docker-compose exec frontend yarn test --watchAll=false
+#   - docker-compose exec backend cp libcrypto/libcrypto.so.1.0.0 node_modules/.cache/mongodb-memory-server/mongodb-binaries/4.0.14/mongod
+#   - docker-compose exec backend yarn test --watchAll=false --coverage
+#   - docker-compose down
