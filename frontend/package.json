@@ -10,6 +10,7 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "@types/http-proxy-middleware": "^0.19.3",
     "@types/jest": "^26.0.16",
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.53",
@@ -52,7 +53,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:8080",
   "devDependencies": {
     "@firebase/rules-unit-testing": "^1.1.6",
     "@types/duplexify": "^3.6.0"
