@@ -32,6 +32,15 @@ app.use(bodyParser.json())
 
 app.use('/api/v1', router)
 
+app.use(express.static(path.join(__dirname, '/frontend/build/')))
+app.get('*', (req, res) => {
+  res.sendFile('index.html', { root: __dirname }, (err) => {
+    if (err) {
+      res.status(500).send(err)
+    }
+  })
+})
+
 server.listen(PORT, (error) => {
   if (error) {
     console.error(error)
