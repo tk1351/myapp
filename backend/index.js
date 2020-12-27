@@ -31,15 +31,15 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 app.use('/api/v1', router)
-
 app.use('/static', express.static(path.join(__dirname, '../frontend/build')))
-app.get('*', (req, res) => {
-  res.sendFile('index.html', { root: __dirname }, (err) => {
-    if (err) {
-      res.status(500).send(err)
-    }
-  })
-})
+// app.get('*', (req, res) => {
+//   res.sendFile('index.html', { root: __dirname }, (err) => {
+//     if (err) {
+//       res.status(500).send(err)
+//     }
+//   })
+// })
+//
 
 server.listen(PORT, (error) => {
   if (error) {
