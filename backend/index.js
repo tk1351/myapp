@@ -4,8 +4,17 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const http = require('http')
 const cors = require('cors')
+const path = require('path')
 
 const server = http.createServer(app)
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('frontend/build'))
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
+  })
+}
+
 const PORT = process.env.PORT || 8080
 const config = require('./config/dev')
 
