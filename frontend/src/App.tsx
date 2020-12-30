@@ -3,8 +3,6 @@ import { useDispatch } from 'react-redux'
 import { login, logout } from './features/authSlice'
 import { auth } from './firebase'
 import Navbar from './components/Navbar'
-import Routes from './Routes'
-
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
@@ -32,7 +30,6 @@ const App: React.FC = () => {
   return (
     <>
       <Navbar />
-      <Routes />
     </>
   )
 }

@@ -33,7 +33,7 @@ app.use(bodyParser.json())
 
 app.use('/api/v1', router)
 
-app.use(express.static(path.join(__dirname, '../frontend/build')))
+app.use(express.static(path.join(__dirname, '../frontend/public')))
 app.get('*', (req, res) => {
   res.sendFile('/index.html', { root: __dirname }, (err) => {
     if (err) {

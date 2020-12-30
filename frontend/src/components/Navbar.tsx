@@ -2,7 +2,7 @@ import React from 'react'
 import { Router, Link } from 'react-router-dom'
 import { auth } from '../firebase'
 import history from '../history'
-import { 
+import {
   makeStyles,
   Theme,
   createStyles,
@@ -10,15 +10,15 @@ import {
   Toolbar,
   IconButton,
   Typography,
- } from '@material-ui/core'
- import MenuIcon from '@material-ui/icons/Menu'
+} from '@material-ui/core'
+import MenuIcon from '@material-ui/icons/Menu'
 import Routes from '../Routes'
 import Search from './Search'
 import { selectUser } from '../features/authSlice'
 import { useSelector } from 'react-redux'
 import { selectAllUsers } from '../features/userSlice'
 
- const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     grow: {
       flexGrow: 1,
@@ -64,20 +64,18 @@ const Navbar: React.FC = () => {
     { key: '3', path: `/user/edit/${authUser.uid}`, name: 'プロフィール変更' },
   ]
 
-  const isNotAuthMenuList = [
-    { key: '1', path: '/login', name: 'ログイン' }
-  ]
+  const isNotAuthMenuList = [{ key: '1', path: '/login', name: 'ログイン' }]
 
-  const adminMenuList = [
-    { key: '1', path: '/admin', name: '管理画面' }
-  ]
+  const adminMenuList = [{ key: '1', path: '/admin', name: '管理画面' }]
 
   const menuList = () => {
     if (findAuthUsersRole === 'user') {
       return (
         <>
           {isAuthMenuList.map((menu) => (
-              <Link key={menu.key} to={menu.path}>{menu.name}</Link>
+            <Link key={menu.key} to={menu.path}>
+              {menu.name}
+            </Link>
           ))}
           <button
             onClick={async () => {
@@ -91,11 +89,15 @@ const Navbar: React.FC = () => {
       )
     } else if (findAuthUsersRole === 'admin') {
       return adminMenuList.map((menu) => (
-        <Link key={menu.key} to={menu.path}>{menu.name}</Link>
-      )) 
+        <Link key={menu.key} to={menu.path}>
+          {menu.name}
+        </Link>
+      ))
     }
     return isNotAuthMenuList.map((menu) => (
-      <Link key={menu.key} to={menu.path}>{menu.name}</Link>
+      <Link key={menu.key} to={menu.path}>
+        {menu.name}
+      </Link>
     ))
   }
 
@@ -130,6 +132,7 @@ const Navbar: React.FC = () => {
           </Toolbar>
         </AppBar>
       </div>
+      <Routes />
     </Router>
   )
 }
