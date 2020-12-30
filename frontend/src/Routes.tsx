@@ -1,5 +1,5 @@
 import React from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, BrowserRouter } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import AddPost from './components/AddPost'
 import Feed from './components/Feed'
@@ -21,6 +21,7 @@ const Routes: React.FC = () => {
   const q = useSelector((state: any) => state.queryParams).slice(-1)[0].values.q
 
   return <div>
+    <BrowserRouter>
     <Switch>
       <Route exact path="/" component={Home} />
       <Route exact path="/feed" component={Feed} />
@@ -38,6 +39,7 @@ const Routes: React.FC = () => {
       <Route exact path="/admin/post/:id" component={AdminPostDetail} />
       <Route component={NotFound} />
     </Switch>
+    </BrowserRouter>
   </div>
 }
 
