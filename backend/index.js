@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const http = require('http')
 const cors = require('cors')
+const path = require('path')
 
 const server = http.createServer(app)
 
