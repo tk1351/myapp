@@ -8,13 +8,13 @@ const cors = require('cors')
 const server = http.createServer(app)
 
 const PORT = process.env.PORT || 5000
-const config = require('./config/dev')
+// const config = require('./config/dev')
 
 const router = require('./routes')
 
 app.use(cors())
 
-mongoose.connect(process.env.MONGODB_URI || config.DB_URI, {
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
