@@ -22,8 +22,9 @@ const Routes: React.FC = () => {
 
   return (
     <div>
-      <BrowserRouter basename="/">
+      <BrowserRouter>
         <Switch>
+          <Route component={Home} />
           <Route exact path="/" component={Home} />
           <Route exact path="/feed" component={Feed} />
           <Route exact path="/add" component={AddPost} />
