@@ -1,1 +1,1 @@
-web: NODE_OPTIONS="--max-old-space-size=2048" && cd backend && yarn install && yarn start
+web: NODE_OPTIONS="--max-old-space-size=2048" && cd frontend && yarn start
