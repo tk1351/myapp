@@ -130,7 +130,6 @@ const Navbar: React.FC = () => {
           </Toolbar>
         </AppBar>
       </div>
-      <Routes />
     </Router>
   )
 }

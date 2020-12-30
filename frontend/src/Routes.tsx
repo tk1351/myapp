@@ -21,14 +21,12 @@ const Routes: React.FC = () => {
   const q = useSelector((state: any) => state.queryParams).slice(-1)[0].values.q
 
   return (
-    <div>
       <BrowserRouter>
         <Switch>
-          <Route component={Home} />
           <Route exact path="/" component={Home} />
           <Route exact path="/feed" component={Feed} />
           <Route exact path="/add" component={AddPost} />
-          <Route exact path="/login" component={Auth} />
+          <Route exact path="c" component={Auth} />
           <Route exact path={`/search?q=${q}`} component={SearchResult} />
           <Route exact path={'/post/detail/:id'} component={SinglePostPage} />
           <Route exact path="/post/edit/:id" component={EditPost} />
@@ -42,7 +40,6 @@ const Routes: React.FC = () => {
           <Route component={NotFound} />
         </Switch>
       </BrowserRouter>
-    </div>
   )
 }
 
