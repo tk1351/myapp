@@ -24,7 +24,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node-dev index.js",
+    "start": "node index.js",
     "dev": "nodemon -L index.js",
     "test": "jest --maxWorkers 4 --detectOpenHandles"
   },
