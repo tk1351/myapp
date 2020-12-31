@@ -10,6 +10,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <App />
+      <p>helloworld!!!!!</p>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
