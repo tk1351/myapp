@@ -3,6 +3,9 @@ import { useDispatch } from 'react-redux'
 import { login, logout } from './features/authSlice'
 import { auth } from './firebase'
 import Navbar from './components/Navbar'
+import { Router } from 'react-router-dom'
+import Routes from './Routes'
+import history from './history'
 
 const App: React.FC = () => {
   const dispatch = useDispatch()
@@ -28,9 +31,10 @@ const App: React.FC = () => {
   }, [dispatch])
 
   return (
-    <>
+    <Router history={history}>
       <Navbar />
-    </>
+      <Routes />
+    </Router>
   )
 }
 

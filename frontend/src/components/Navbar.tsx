@@ -1,7 +1,6 @@
 import React from 'react'
-import { Router, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { auth } from '../firebase'
-import history from '../history'
 import {
   makeStyles,
   Theme,
@@ -12,11 +11,11 @@ import {
   Typography,
 } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
-import Routes from '../Routes'
 import Search from './Search'
 import { selectUser } from '../features/authSlice'
 import { useSelector } from 'react-redux'
 import { selectAllUsers } from '../features/userSlice'
+import history from '../history'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -110,30 +109,27 @@ const Navbar: React.FC = () => {
   )
 
   return (
-    <Router history={history}>
-      <div className={classes.grow}>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton
-              edge="start"
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="open drawer"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography className={classes.title} variant="h6" noWrap>
-              MyApp
-            </Typography>
-            {menuList()}
-            {isAuthName}
-            <Search />
-            <div className={classes.grow} />
-          </Toolbar>
-        </AppBar>
-      </div>
-      <Routes />
-    </Router>
+    <div className={classes.grow}>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="open drawer"
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography className={classes.title} variant="h6" noWrap>
+            MyApp
+          </Typography>
+          {menuList()}
+          {isAuthName}
+          <Search />
+          <div className={classes.grow} />
+        </Toolbar>
+      </AppBar>
+    </div>
   )
 }
 
