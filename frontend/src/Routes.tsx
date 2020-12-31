@@ -22,23 +22,21 @@ const Routes: React.FC = () => {
 
   return (
     <BrowserRouter basename="/">
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/feed" component={Feed} />
-        <Route exact path="/add" component={AddPost} />
-        <Route exact path="c" component={Auth} />
-        <Route exact path={`/search?q=${q}`} component={SearchResult} />
-        <Route exact path={'/post/detail/:id'} component={SinglePostPage} />
-        <Route exact path="/post/edit/:id" component={EditPost} />
-        <Route exact path="/user/profile/:id" component={UserProfile} />
-        <Route exact path="/user/edit/:id" component={EditProfile} />
-        <Route exact path="/category/:id" component={CategoryPage} />
-        <Route exact path="/admin" component={AdminScreen} />
-        <Route exact path="/admin/user" component={AdminUsersList} />
-        <Route exact path="/admin/post" component={AdminPostsList} />
-        <Route exact path="/admin/post/:id" component={AdminPostDetail} />
-        <Route component={NotFound} />
-      </Switch>
+      <Route exact path="/" component={Home} />
+      <Route exact path="/feed" component={Feed} />
+      <Route exact path="/add" component={AddPost} />
+      <Route exact path="c" component={Auth} />
+      <Route exact path={`/search?q=${q}`} component={SearchResult} />
+      <Route exact path={'/post/detail/:id'} component={SinglePostPage} />
+      <Route exact path="/post/edit/:id" component={EditPost} />
+      <Route exact path="/user/profile/:id" component={UserProfile} />
+      <Route exact path="/user/edit/:id" component={EditProfile} />
+      <Route exact path="/category/:id" component={CategoryPage} />
+      <Route exact path="/admin" component={AdminScreen} />
+      <Route exact path="/admin/user" component={AdminUsersList} />
+      <Route exact path="/admin/post" component={AdminPostsList} />
+      <Route exact path="/admin/post/:id" component={AdminPostDetail} />
+      <Route component={NotFound} />
     </BrowserRouter>
   )
 }
