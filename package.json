@@ -38,7 +38,7 @@
     "build": "cd frontend && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn install && yarn build"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false PORT=$PORT yarn install && yarn build"
   },
   "browserslist": {
     "production": [
