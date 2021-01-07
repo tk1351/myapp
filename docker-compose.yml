@@ -4,7 +4,7 @@ services:
   frontend:
     build:
       context: .
-      dockerfile: frontend/Dockerfile
+      dockerfile: frontend/Dockerfile.dev
     command: 'yarn dev'
     ports:
       - '3000:3000'
@@ -19,8 +19,8 @@ services:
   backend:
     build:
       context: .
-      dockerfile: backend/Dockerfile
-    command: 'yarn start'
+      dockerfile: backend/Dockerfile.dev
+    command: 'yarn dev'
     ports:
       - '8080:8080'
     volumes:

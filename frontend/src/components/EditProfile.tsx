@@ -47,6 +47,8 @@ const EditProfile: React.FC = ({ match }: any) => {
     url: singleUser.url
   }
 
+  console.log('uid', singleUser.uid)
+
   const onUpdateProfileClicked = async (values: Profile) => {
     let imageUrl = ''
 

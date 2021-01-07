@@ -77,7 +77,6 @@ module.exports = {
         foundUser.position = req.body.position
         foundUser.bio = req.body.bio
         foundUser.url = req.body.url
-        foundUser.role = req.body.role
 
         foundUser.save((err, data) => {
           if (err) {

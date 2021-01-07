@@ -4,27 +4,17 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const http = require('http')
 const cors = require('cors')
-const path = require('path')
 
 const server = http.createServer(app)
 
-const PORT = process.env.PORT || 5000
-// const config = require('./config/dev')
+const PORT = process.env.PORT || 8080
+const config = require('./config/dev')
 
 const router = require('./routes')
 
 app.use(cors())
 
-app.use(express.static(path.join(__dirname, '../frontend/build')))
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/build/index.html'), (err) => {
-    if (err) {
-      res.status(500).send(err)
-    }
-  })
-})
-
-mongoose.connect(process.env.MONGODB_URI || process.env.DB_URI, {
+mongoose.connect(config.DB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,

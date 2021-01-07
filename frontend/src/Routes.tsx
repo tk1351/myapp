@@ -23,10 +23,10 @@ const Routes: React.FC = () => {
   return (
     <Switch>
       <Route exact path="/" component={Home} />
+      <Route exact path="/login" component={Auth} />
       <Route exact path="/index.html" component={Home} />
       <Route exact path="/feed" component={Feed} />
       <Route exact path="/add" component={AddPost} />
-      <Route exact path="c" component={Auth} />
       <Route exact path={`/search?q=${q}`} component={SearchResult} />
       <Route exact path={'/post/detail/:id'} component={SinglePostPage} />
       <Route exact path="/post/edit/:id" component={EditPost} />

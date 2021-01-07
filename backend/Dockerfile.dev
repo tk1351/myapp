@@ -10,4 +10,4 @@ RUN rm -rf node_modules && yarn install
 
 EXPOSE 8080
 
-CMD ["yarn", "start"]
+CMD ["yarn", "dev"]
