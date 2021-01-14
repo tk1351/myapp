@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const http = require('http')
 const cors = require('cors')
+const path = require('path')
 
 const server = http.createServer(app)
 
@@ -32,6 +33,12 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 app.use('/api/v1', router)
+
+// これ必要？
+app.use(express.static(path.join(__dirname, 'build')))
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'))
+})
 
 server.listen(PORT, (error) => {
   if (error) {
